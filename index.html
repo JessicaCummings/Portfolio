@@ -56,17 +56,11 @@ a{color:inherit;text-decoration:none}
 .subnav button:hover{color:var(--coral)}
 .subnav button.on{color:var(--coral);font-weight:700}
 .tabswap{animation:fadeIn .35s var(--ease)}
-.hero{display:flex;flex-direction:column;align-items:center;gap:28px;padding:64px 80px 56px;overflow:hidden}
-.hero__block{position:relative;display:flex;align-items:center;justify-content:center;min-height:480px;width:100%;max-width:820px}
-.hero__names{position:relative;z-index:2;text-align:center;margin-right:200px}
+.hero{display:flex;flex-direction:column;align-items:center;gap:24px;padding:72px 80px 64px;overflow:hidden}
+.hero__names{text-align:center}
+.hero__response{text-align:center;min-height:92px;display:flex;flex-direction:column;justify-content:center;gap:10px;max-width:760px}
 .hero__first{font-family:var(--display);font-weight:700;font-size:96px;line-height:1;color:var(--coral);letter-spacing:16px}
-.hero__last-svg{width:270px;height:auto;display:block;margin:-52px auto 0 70px}
-.hero__photos{position:absolute;right:0;top:10px;z-index:1}
-.hero__bgphoto{width:300px;height:400px;object-fit:cover;transform:rotate(13deg);border-radius:3px}
-.hero__polaroid{position:absolute;top:70px;left:-30px;width:260px;background:var(--white);padding:18px 18px 16px;box-shadow:0 4px 14px rgba(0,0,0,.2);transform:rotate(-3deg);z-index:3;transition:transform .3s var(--ease)}
-.hero__polaroid:hover{transform:rotate(-1deg) scale(1.02)}
-.hero__polaroid .ph,.hero__polaroid img{width:100%;height:210px;object-fit:cover}
-.hero__polaroid-label{font-family:var(--accent);font-size:24px;color:var(--navy);text-align:center;margin-top:10px}
+.hero__last-svg{width:300px;height:auto;display:block;margin:-46px auto 0}
 .hero__tagline{font-family:var(--accent);font-size:34px;color:var(--navy);text-align:center}
 .hero__subtitle{font-size:14px;letter-spacing:1px;text-align:center}
 
@@ -158,6 +152,8 @@ a{color:inherit;text-decoration:none}
 .csh__desc{font-size:16px;line-height:1.75;max-width:780px;margin-bottom:22px}
 .csh__award{font-family:var(--accent);font-size:22px;color:var(--coral)}
 .csimg{width:100%;height:560px}
+.csvideo{position:relative;width:100%;aspect-ratio:16/9;background:var(--navy)}
+.csvideo iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .csimg .ph{width:100%;height:100%;border-radius:0}
 .csctx{display:flex;gap:44px;padding:26px 80px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);flex-wrap:wrap}
 .csctx div label{display:block;font-weight:700;font-size:11px;letter-spacing:2px;color:var(--coral);text-transform:uppercase;margin-bottom:3px}
@@ -208,16 +204,10 @@ a{color:inherit;text-decoration:none}
   .nav__links.open{display:flex}
   .nav__link{width:100%;text-align:center}
   .subnav{gap:14px 28px;justify-content:flex-start}
-  .hero{padding:36px 20px}
-  .hero__block{flex-direction:column;min-height:auto;gap:24px}
-  .hero__names{margin-right:0}
+  .hero{padding:40px 20px}
   .hero__first{font-size:52px;letter-spacing:8px}
-  .hero__last-svg{width:150px;margin:-28px auto 0 40px}
-  .hero__photos{position:relative;top:0;margin-top:8px}
-  .hero__bgphoto{width:190px;height:250px}
-  .hero__polaroid{width:165px;padding:10px 10px 8px;top:40px;left:-15px}
-  .hero__polaroid .ph,.hero__polaroid img{height:130px}
-  .hero__polaroid-label{font-size:18px}
+  .hero__last-svg{width:190px;margin:-26px auto 0}
+  .hero__response{min-height:78px}
   .hero__tagline{font-size:24px}
   .hero__subtitle{font-size:12px}
   .pcard{flex-direction:column}
@@ -273,23 +263,16 @@ a{color:inherit;text-decoration:none}
   </div>
 
   <section class="hero">
-    <div class="hero__block">
-      <div class="hero__names">
-        <h1>
-          <span class="hero__first">JESS</span>
-          <img class="hero__last-svg" src="images/cummings.png" alt="Cummings">
-        </h1>
-      </div>
-      <div class="hero__photos">
-        <div class="hero__bgphoto ph"><img src="images/hero-texture.jpg" alt="" loading="lazy" onerror="this.remove()">craft paper / texture photo</div>
-        <div class="hero__polaroid" onclick="go('about')" role="button" tabindex="0" aria-label="Go to About page">
-          <div class="ph"><img src="images/headshot.jpg" alt="Jess Cummings" loading="lazy" onerror="this.remove()">your headshot here</div>
-          <p class="hero__polaroid-label">About Me</p>
-        </div>
-      </div>
+    <div class="hero__names">
+      <h1>
+        <span class="hero__first">JESS</span>
+        <img class="hero__last-svg" src="images/cummings.png" alt="Cummings">
+      </h1>
     </div>
-    <p class="hero__tagline" id="tabStatement">I turn complex systems into stories</p>
-    <p class="hero__subtitle" id="tabSupport">Product Designer &nbsp;·&nbsp; Detroit, MI &nbsp;·&nbsp; Automotive &amp; Transportation &nbsp;·&nbsp; Brand Systems</p>
+    <div class="hero__response">
+      <p class="hero__tagline" id="tabStatement">I turn complex systems into stories</p>
+      <p class="hero__subtitle" id="tabSupport">Product Designer &nbsp;·&nbsp; Detroit, MI &nbsp;·&nbsp; Automotive &amp; Transportation &nbsp;·&nbsp; Brand Systems</p>
+    </div>
     <a href="#home-projects" class="btn btn--primary">View Work ↓</a>
   </section>
 
@@ -298,7 +281,7 @@ a{color:inherit;text-decoration:none}
     <div class="projects__grid">
 
       <div class="pcard" onclick="go('bridgestone')" role="link" tabindex="0">
-        <div class="pcard__preview"><div class="ph"><img src="images/bridgestone-preview.jpg" alt="Bridgestone FleetFix dashboard preview" loading="lazy" onerror="this.remove()">Bridgestone screens</div></div>
+        <div class="pcard__preview"><div class="ph"><img src="images/bridgestone-hero.jpg" alt="Bridgestone FleetFix dashboard preview" loading="lazy" onerror="this.remove()">Bridgestone screens</div></div>
         <div class="pcard__info">
           <span class="pcard__tags">Automotive · SAAS · End-to-End</span>
           <h2 class="pcard__title">Bridgestone</h2>
@@ -493,7 +476,11 @@ a{color:inherit;text-decoration:none}
         <p class="csh__desc">Consolidated five fragmented fleet tools into one role-adaptive platform. Reducing task completion time by 75% and eliminating usability failures.</p>
         <p class="csh__award">— First Place, UMSI 2025 Showcase</p>
       </section>
-      <div class="csimg"><div class="ph"><img src="images/bridgestone-hero.jpg" alt="FleetFix dashboard overview" loading="lazy" onerror="this.remove()">Full FleetFix dashboard — hero screenshot</div></div>
+      <div class="csvideo">
+        <iframe src="https://www.loom.com/embed/fd74b875963c45429d1cc9a849786540?hideEmbedTopBar=true"
+          title="Bridgestone FleetFix walkthrough" frameborder="0"
+          allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
       <div class="csctx">
         <div><label>My Role</label><span>Project Manager &amp; Lead Designer</span></div>
         <div><label>Team</label><span>5 designers &amp; researchers</span></div>
