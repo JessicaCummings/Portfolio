@@ -1,0 +1,56 @@
+DROP YOUR IMAGES IN THIS FOLDER, NAMED EXACTLY AS BELOW.
+Missing ones just show a gray box on the site - add them in any order.
+.jpg for photos, .png for UI screenshots, under ~1 MB each, all lowercase.
+
+--- HOME ---
+headshot.jpg              your headshot (hero polaroid)
+hero-texture.jpg          OPTIONAL texture behind your name
+bridgestone-preview.jpg   Bridgestone card thumbnail
+chip-preview.jpg          Chip Motors card thumbnail
+tripslip-preview.jpg      TripSlip card thumbnail
+
+--- ABOUT ---
+about-photo.jpg           big "hello!" photo
+hobby-yoga.jpg            yoga / walking
+hobby-exploring.jpg       exploring Detroit
+hobby-traveling.jpg       traveling
+hobby-community.jpg       community / meetups
+
+--- BRIDGESTONE ---
+bridgestone-hero.jpg      full dashboard hero
+bs-dashboard.jpg          Dashboard
+bs-manage-tires.jpg       Manage Tires
+bs-change-tires.jpg       Change Tires
+bs-inspections.jpg        Inspections
+bs-reports.jpg            Reports
+bs-alerts.jpg             Alerts & Notifications
+bs-before-health.jpg      BEFORE old health score
+bs-after-health.jpg       AFTER status breakdown
+bs-before-checkbox.jpg    BEFORE checkboxes
+bs-after-checkbox.jpg     AFTER action buttons
+
+--- CHIP MOTORS ---
+chip-hero.jpg             chipmotors.com hero
+chip-before.jpg           BEFORE fragmented sites
+chip-after.jpg            AFTER unified site
+chip-home.jpg             Meet Chip (Home)
+chip-luv.jpg              Life Utility Vehicle
+chip-go.jpg               Chip Go! Features
+chip-configurator.jpg     Build Yours
+chip-faq.jpg              FAQ
+chip-reserve.jpg          Reserve Flow
+chip-components.jpg       component library
+
+--- TRIPSLIP ---
+tripslip-hero.jpg         multi-view hero
+ts-trip-creation.jpg      Trip Creation
+ts-permission-slips.jpg   Permission Slips
+ts-payment.jpg            Payment Collection
+ts-checkin.jpg            Day-of Check-in
+ts-parent.jpg             Parent View
+ts-ia-map.jpg             IA map (FigJam export)
+
+--- FASTEST START (do these 8 first) ---
+headshot.jpg, bridgestone-preview.jpg, chip-preview.jpg,
+tripslip-preview.jpg, bridgestone-hero.jpg, chip-hero.jpg,
+tripslip-hero.jpg, about-photo.jpg
