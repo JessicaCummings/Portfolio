@@ -86,7 +86,7 @@ button { cursor: pointer; font-family: var(--font); }
 .browser-mock__dot--yellow { background: #febc2e; }
 .browser-mock__dot--green { background: #28c840; }
 .browser-mock__body { padding: 0; font-size: 12px; color: var(--muted); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.browser-mock__body img { width: 100%; height: 100%; object-fit: cover; }
+.browser-mock__body img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
 
 /* ============ HERO ============ */
 .hero { display: flex; gap: 48px; padding: 48px var(--pad) 48px; position: relative; overflow: hidden; border-bottom: 2px solid var(--black); }
@@ -212,7 +212,7 @@ button { cursor: pointer; font-family: var(--font); }
 .csh__award { font-weight: 700; font-size: 16px; }
 
 .csimg { width: 100%; height: 560px; overflow: hidden; }
-.csimg img { width: 100%; height: 100%; object-fit: cover; }
+.csimg img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
 .csimg .ph { width: 100%; height: 100%; background: #ededed; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 13px; position: relative; }
 
 .csvideo { position: relative; width: 100%; aspect-ratio: 16/9; background: var(--black); }
@@ -230,7 +230,7 @@ button { cursor: pointer; font-family: var(--font); }
 
 .screens { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 32px; }
 .screen .ph { height: 340px; margin-bottom: 10px; background: #ededed; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 13px; position: relative; overflow: hidden; }
-.screen .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.screen .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: top; }
 .screen h3 { font-weight: 600; font-size: 16px; color: var(--black); margin-bottom: 4px; }
 .screen p { font-size: 14px; color: var(--muted); }
 
@@ -248,7 +248,7 @@ button { cursor: pointer; font-family: var(--font); }
 .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 22px; }
 .compare .lbl { font-weight: 700; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; color: var(--muted); }
 .compare .ph { height: 280px; background: #ededed; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 13px; position: relative; overflow: hidden; }
-.compare .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.compare .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: top; }
 
 .stats { display: flex; justify-content: center; gap: 44px; margin: 28px 0; flex-wrap: wrap; }
 .stat { text-align: center; }
@@ -389,7 +389,7 @@ button { cursor: pointer; font-family: var(--font); }
     </div>
 
     <div class="hero__photo">
-      <img src="images/headshot.png" alt="Jess Cummings" loading="lazy" onerror="this.style.display='none'">
+      <img src="images/headshot.jpg" alt="Jess Cummings" loading="lazy" onerror="this.style.display='none'">
     </div>
   </section>
 
@@ -434,7 +434,7 @@ button { cursor: pointer; font-family: var(--font); }
     <div class="project-panel__preview">
       <div class="browser-mock">
         <div class="browser-mock__bar"><span class="browser-mock__dot browser-mock__dot--red"></span><span class="browser-mock__dot browser-mock__dot--yellow"></span><span class="browser-mock__dot browser-mock__dot--green"></span></div>
-        <div class="browser-mock__body"><img src="images/why-luv.png" alt="Chip Motors" loading="lazy" onerror="this.outerHTML='<div style=&quot;padding:40px;text-align:center;color:#7c3aed;font-weight:700;font-size:48px&quot;>02</div>'"></div>
+        <div class="browser-mock__body"><img src="images/why-luv.jpg" alt="Chip Motors" loading="lazy" onerror="this.outerHTML='<div style=&quot;padding:40px;text-align:center;color:#7c3aed;font-weight:700;font-size:48px&quot;>02</div>'"></div>
       </div>
     </div>
     <div class="project-panel__content">
@@ -706,8 +706,8 @@ button { cursor: pointer; font-family: var(--font); }
       <section class="css" id="cm-solution"><p class="css__label">THE SOLUTION</p><h2 class="css__title">One brand, one site, one story <span class="accent">built to scale</span></h2><p class="css__body">I designed and built a unified web presence from scratch, consolidating the brand story, vehicle specs, configurator, and autonomous driving features into one cohesive site.</p>
         <div class="screens">
           <div class="screen"><div class="ph"><img src="images/chip-home.jpg" alt="Meet Chip" loading="lazy" onerror="this.remove()">Meet Chip</div><h3>Meet Chip (Home)</h3><p>Hero landing with the LUV value prop</p></div>
-          <div class="screen"><div class="ph"><img src="images/why-luv.png" alt="Why LUV" loading="lazy" onerror="this.remove()">Life Utility Vehicle</div><h3>Life Utility Vehicle</h3><p>Deep-dive covering specs and dimensions</p></div>
-          <div class="screen"><div class="ph"><img src="images/chip-go.png" alt="Chip Go" loading="lazy" onerror="this.remove()">Chip Go!</div><h3>Chip Go! Features</h3><p>Autonomous features: Park, Fetch, Home, Freshen Up</p></div>
+          <div class="screen"><div class="ph"><img src="images/why-luv.jpg" alt="Why LUV" loading="lazy" onerror="this.remove()">Life Utility Vehicle</div><h3>Life Utility Vehicle</h3><p>Deep-dive covering specs and dimensions</p></div>
+          <div class="screen"><div class="ph"><img src="images/chip-go.jpg" alt="Chip Go" loading="lazy" onerror="this.remove()">Chip Go!</div><h3>Chip Go! Features</h3><p>Autonomous features: Park, Fetch, Home, Freshen Up</p></div>
           <div class="screen"><div class="ph"><img src="images/build-yours.png" alt="Configurator" loading="lazy" onerror="this.remove()">Build Yours</div><h3>Build Yours</h3><p>Interactive vehicle configurator</p></div>
         </div>
       </section>
