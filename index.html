@@ -16,8 +16,15 @@
   --orange: #ff5c00;
   --purple: #7c3aed;
   --yellow: #ffd000;
+  /* Accessible text variants (>=5:1 on --bg) — use these for TEXT.
+     The bright originals remain for BACKGROUNDS with black text. */
+  --yellow-text: #826a00;
+  --red-text: #d41f00;
+  --orange-text: #be4400;
+  --orange-display: #e95400; /* large display text only (>=24px), 3.5:1 */
+  --blue-text: #0b62ef;
   --muted: #666;
-  --muted-light: #a6a6a6;
+  --muted-light: #737373;
   --muted-dark: #737373;
   --white: #fafaf8;
   --card-bg: #fafaf8;
@@ -45,9 +52,9 @@ button { cursor: pointer; font-family: var(--font); }
 .nav__links { display: flex; gap: 32px; list-style: none; }
 .nav__link { display: flex; align-items: center; gap: 6px; background: none; border: none; font-family: var(--font); font-weight: 700; font-size: 13px; letter-spacing: 1px; color: var(--black); cursor: pointer; padding: 0; transition: color .2s; }
 .nav__link::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--black); }
-.nav__link:hover { color: var(--red); }
+.nav__link:hover { color: var(--red-text); }
 .nav__link:hover::before { background: var(--red); }
-.nav__link.on { color: var(--red); }
+.nav__link.on { color: var(--red-text); }
 .nav__link.on::before { background: var(--red); }
 .nav__toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; flex-direction: column; gap: 5px; }
 .nav__toggle span { display: block; width: 24px; height: 2px; background: var(--black); transition: transform .3s, opacity .2s; }
@@ -55,7 +62,7 @@ button { cursor: pointer; font-family: var(--font); }
 /* ============ SUB NAV (inside hero) ============ */
 .subnav { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 24px; padding: 0; margin-top: 16px; }
 .subnav__btn { background: none; border: none; font-family: var(--font); font-weight: 700; font-size: 12px; letter-spacing: 1px; color: var(--black); cursor: pointer; padding: 0; transition: color .2s; }
-.subnav__btn:hover { color: var(--red); }
+.subnav__btn:hover { color: var(--red-text); }
 .subnav__btn.on { background: var(--orange); color: white; padding: 6px 14px; box-shadow: 3px 3px 0 0 var(--black); }
 
 /* Tab content area */
@@ -93,7 +100,7 @@ button { cursor: pointer; font-family: var(--font); }
 .hero__left { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
 .hero__tag { display: inline-flex; background: var(--yellow); padding: 8px 14px; font-weight: 700; font-size: 11px; letter-spacing: 1.2px; color: var(--black); box-shadow: 4px 4px 0 0 var(--black); margin-bottom: 20px; align-self: flex-start; }
 .hero__name { font-weight: 700; font-size: 100px; color: var(--black); letter-spacing: -2px; line-height: 0.95; }
-.hero__name .first { color: var(--orange); display: block; }
+.hero__name .first { color: var(--orange-display); display: block; }
 .hero__name .last { display: block; -webkit-text-stroke: 2.5px var(--black); color: transparent; }
 .hero__cta { margin-top: 24px; }
 .hero__photo { width: 380px; height: 460px; background: white; box-shadow: 10px 10px 0 0 var(--black); flex-shrink: 0; position: relative; overflow: hidden; }
@@ -136,7 +143,7 @@ button { cursor: pointer; font-family: var(--font); }
 
 /* ============ CONTACT FOOTER ============ */
 .contact-footer { background: var(--black); border-top: 2px solid var(--black); padding: 56px var(--pad) 40px; display: flex; flex-direction: column; gap: 12px; }
-.contact-footer__eyebrow { font-weight: 700; font-size: 12px; letter-spacing: 3px; color: var(--red); }
+.contact-footer__eyebrow { font-weight: 700; font-size: 12px; letter-spacing: 3px; color: var(--red-text); }
 .contact-footer__title { font-weight: 700; font-size: 44px; letter-spacing: -1px; color: var(--white); }
 .contact-footer__desc { font-size: 17px; color: var(--muted-light); }
 .contact-footer__links { font-size: 13px; color: var(--muted-dark); margin-top: 16px; }
@@ -165,7 +172,7 @@ button { cursor: pointer; font-family: var(--font); }
 .story { display: flex; gap: 64px; padding: 64px var(--pad); flex-wrap: wrap; border-bottom: 2px solid var(--black); }
 .story__left { width: 360px; flex-shrink: 0; }
 .story__quote { font-weight: 700; font-size: 30px; line-height: 1.4; color: var(--black); margin: 16px 0; }
-.story__sig { font-weight: 700; font-size: 16px; color: var(--red); }
+.story__sig { font-weight: 700; font-size: 16px; color: var(--red-text); }
 .story__right { flex: 1; min-width: 300px; font-size: 15px; line-height: 1.85; color: var(--muted); }
 .story__right p { margin-bottom: 20px; }
 .story__belief { border-left: 4px solid var(--yellow); padding: 16px 20px; background: var(--yellow); font-weight: 700; font-size: 16px; color: var(--black); margin-top: 8px; box-shadow: 4px 4px 0 0 var(--black); }
@@ -180,7 +187,7 @@ button { cursor: pointer; font-family: var(--font); }
 /* Hobbies */
 .hobbies { padding: 56px var(--pad); border-top: 2px solid var(--black); }
 .hobbies__head { font-weight: 700; font-size: 32px; color: var(--black); }
-.hobbies__head .accent { font-weight: 500; font-size: 16px; color: var(--red); display: block; margin-top: 4px; }
+.hobbies__head .accent { font-weight: 500; font-size: 16px; color: var(--red-text); display: block; margin-top: 4px; }
 .hobbies__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 28px; }
 .hobby { padding: 20px; box-shadow: 5px 5px 0 0 var(--black); background: var(--bg); }
 .hobby__img { aspect-ratio: 1; background: #ededed; margin-bottom: 14px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--muted); overflow: hidden; }
@@ -190,7 +197,7 @@ button { cursor: pointer; font-family: var(--font); }
 
 /* Big Contact */
 .bigcontact { text-align: center; padding: 72px var(--pad); background: var(--black); border-top: 2px solid var(--black); }
-.bigcontact__eyebrow { font-weight: 700; font-size: 14px; color: var(--red); letter-spacing: 2px; }
+.bigcontact__eyebrow { font-weight: 700; font-size: 14px; color: var(--red-text); letter-spacing: 2px; }
 .bigcontact__title { font-weight: 700; font-size: 46px; color: var(--white); margin: 12px 0 16px; letter-spacing: -1px; }
 .bigcontact__desc { max-width: 500px; margin: 0 auto 26px; color: var(--muted-light); }
 .bigcontact__btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
@@ -199,10 +206,10 @@ button { cursor: pointer; font-family: var(--font); }
 .cs { display: flex; min-height: 100vh; }
 .cs__side { width: 220px; flex-shrink: 0; padding: 80px 24px 40px; position: sticky; top: 73px; height: fit-content; }
 .cs__back { font-weight: 700; font-size: 13px; color: var(--black); margin-bottom: 24px; display: block; cursor: pointer; transition: color .2s; }
-.cs__back:hover { color: var(--red); }
+.cs__back:hover { color: var(--red-text); }
 .cs__nav { list-style: none; border-left: 2px solid #e5e5e5; }
 .cs__nav a { display: block; padding: 9px 16px; font-size: 13px; font-weight: 500; color: var(--muted); border-left: 2px solid transparent; margin-left: -2px; transition: all .2s; }
-.cs__nav a:hover, .cs__nav a.on { color: var(--black); border-left-color: var(--red); font-weight: 700; }
+.cs__nav a:hover, .cs__nav a.on { color: var(--black); border-left-color: var(--red-text); font-weight: 700; }
 .cs__main { flex: 1; max-width: 1240px; overflow: hidden; }
 
 .csh { padding: 56px 80px 44px; }
@@ -212,7 +219,7 @@ button { cursor: pointer; font-family: var(--font); }
 .csh__award { font-weight: 700; font-size: 16px; }
 
 .csimg { width: 100%; height: 560px; overflow: hidden; }
-.csimg img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.csimg img { width: 100%; height: 100%; object-fit: contain; object-position: center; }
 .csimg .ph { width: 100%; height: 100%; background: #ededed; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 13px; position: relative; }
 
 .csvideo { position: relative; width: 100%; aspect-ratio: 16/9; background: var(--black); }
@@ -225,12 +232,12 @@ button { cursor: pointer; font-family: var(--font); }
 .css { padding: 60px 80px; }
 .css__label { font-weight: 700; font-size: 12px; letter-spacing: 3.6px; color: var(--muted); text-transform: uppercase; margin-bottom: 14px; }
 .css__title { font-weight: 700; font-size: 34px; color: var(--black); line-height: 1.3; margin-bottom: 22px; letter-spacing: -0.5px; }
-.css__title .accent { font-weight: 500; font-size: 16px; color: var(--red); display: block; margin-top: 4px; }
+.css__title .accent { font-weight: 500; font-size: 16px; color: var(--red-text); display: block; margin-top: 4px; }
 .css__body { font-size: 15px; line-height: 1.8; max-width: 960px; color: var(--muted); }
 
 .screens { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 32px; }
 .screen .ph { height: 340px; margin-bottom: 10px; background: #ededed; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 13px; position: relative; overflow: hidden; }
-.screen .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: top; }
+.screen .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center; }
 .screen h3 { font-weight: 600; font-size: 16px; color: var(--black); margin-bottom: 4px; }
 .screen p { font-size: 14px; color: var(--muted); }
 
@@ -238,7 +245,7 @@ button { cursor: pointer; font-family: var(--font); }
 .view { padding: 22px; box-shadow: 5px 5px 0 0 var(--black); background: var(--bg); }
 .view h3 { font-weight: 700; font-size: 19px; color: var(--black); margin-bottom: 8px; }
 .view p { font-size: 14px; color: var(--muted); margin-bottom: 10px; }
-.view .count { font-weight: 700; font-size: 14px; color: var(--red); }
+.view .count { font-weight: 700; font-size: 14px; color: var(--red-text); }
 
 .decision { padding: 30px; margin-top: 24px; box-shadow: 5px 5px 0 0 var(--black); background: var(--bg); }
 .decision__num { font-weight: 700; font-size: 26px; color: var(--black); opacity: .2; margin-bottom: 6px; }
@@ -248,7 +255,7 @@ button { cursor: pointer; font-family: var(--font); }
 .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 22px; }
 .compare .lbl { font-weight: 700; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; color: var(--muted); }
 .compare .ph { height: 280px; background: #ededed; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 13px; position: relative; overflow: hidden; }
-.compare .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.compare .ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center; }
 
 .stats { display: flex; justify-content: center; gap: 44px; margin: 28px 0; flex-wrap: wrap; }
 .stat { text-align: center; }
@@ -256,12 +263,12 @@ button { cursor: pointer; font-family: var(--font); }
 .stat__lbl { font-size: 13px; max-width: 90px; margin: 0 auto; color: var(--muted); }
 
 .quote { font-weight: 500; font-size: 20px; font-style: italic; line-height: 1.6; color: var(--black); padding: 28px 0 8px; max-width: 860px; }
-.quote-attr { font-weight: 700; font-size: 14px; color: var(--red); }
+.quote-attr { font-weight: 700; font-size: 14px; color: var(--red-text); }
 
 .next { padding: 44px 80px; border-top: 2px solid var(--black); }
 .next__lbl { font-weight: 700; font-size: 12px; letter-spacing: 3.6px; text-transform: uppercase; margin-bottom: 8px; color: var(--muted); }
 .next__title { font-weight: 700; font-size: 34px; color: var(--black); cursor: pointer; display: inline-block; transition: color .2s; }
-.next__title:hover { color: var(--red); }
+.next__title:hover { color: var(--red-text); }
 .next p { font-size: 14px; margin-top: 6px; color: var(--muted); }
 
 /* Lightbox */
@@ -313,7 +320,7 @@ button { cursor: pointer; font-family: var(--font); }
   .cs__back { margin: 0 8px 0 0; }
   .cs__nav { display: flex; flex-wrap: wrap; border-left: none; gap: 6px; }
   .cs__nav a { border: 2px solid #e5e5e5; margin: 0; padding: 7px 11px; font-size: 12px; }
-  .cs__nav a:hover, .cs__nav a.on { background: var(--red); color: var(--white); border-color: var(--red); }
+  .cs__nav a:hover, .cs__nav a.on { background: var(--red); color: var(--white); border-color: var(--red-text); }
   .csh { padding: 30px 20px; } .csh__title { font-size: 34px; }
   .css { padding: 36px 20px; } .css__title { font-size: 26px; }
   .csimg { height: 300px; }
@@ -326,6 +333,13 @@ button { cursor: pointer; font-family: var(--font); }
   .contact-footer__title { font-size: 32px; }
   .contact-footer { text-align: center; align-items: center; }
 }
+
+/* Show whole image (no crop); hide gray placeholder + fallback caption when an image loaded */
+.ph:has(img), .csimg:has(img) { background: transparent !important; color: transparent !important; }
+.ph:has(img) *:not(img), .csimg:has(img) *:not(img) { color: transparent; }
+/* Other Projects: push link to the bottom so all links align */
+.ocard__link { margin-top: auto; padding-top: 4px; }
+.others__grid { align-items: stretch; }
 </style>
 </head>
 <body>
@@ -412,7 +426,7 @@ button { cursor: pointer; font-family: var(--font); }
     <div class="project-panel__content">
       <h2 class="project-panel__title">Bridgestone FleetFix</h2>
       <p class="project-panel__desc">Consolidated five fragmented fleet tools into one role-adaptive platform. First Place, UMSI 2025 Showcase.</p>
-      <p class="project-panel__accent" style="color:var(--red)">— Winner, 2025 Showcase</p>
+      <p class="project-panel__accent" style="color:var(--red-text)">— Winner, 2025 Showcase</p>
       <span class="btn btn--dark" style="box-shadow:4px 4px 0 0 var(--red)">READ CASE STUDY →</span>
     </div>
   </div>
@@ -421,7 +435,7 @@ button { cursor: pointer; font-family: var(--font); }
   <div class="quote-break">
     <div class="quote-break__mock">
       <div class="browser-mock__bar"><span class="browser-mock__dot browser-mock__dot--red"></span><span class="browser-mock__dot browser-mock__dot--yellow"></span><span class="browser-mock__dot browser-mock__dot--green"></span></div>
-      <p class="quote-break__text">"This platform understands how Bridgestone systems are connected. I like how it makes it easy for me." <br><span style="font-weight:700;font-size:14px;color:var(--red)">— Bridgestone User</span></p>
+      <p class="quote-break__text">"This platform understands how Bridgestone systems are connected. I like how it makes it easy for me." <br><span style="font-weight:700;font-size:14px;color:var(--red-text)">— Bridgestone User</span></p>
     </div>
   </div>
 
@@ -462,13 +476,13 @@ button { cursor: pointer; font-family: var(--font); }
     <div class="project-panel__preview">
       <div class="browser-mock">
         <div class="browser-mock__bar"><span class="browser-mock__dot browser-mock__dot--red"></span><span class="browser-mock__dot browser-mock__dot--yellow"></span><span class="browser-mock__dot browser-mock__dot--green"></span></div>
-        <div class="browser-mock__body"><img src="images/tripslip-preview.jpg" alt="TripSlip" loading="lazy" onerror="this.outerHTML='<div style=&quot;padding:40px;text-align:center;color:#ffd000;font-weight:700;font-size:48px&quot;>03</div>'"></div>
+        <div class="browser-mock__body"><img src="images/tripslip-preview.jpg" alt="TripSlip" loading="lazy" onerror="this.outerHTML='<div style=&quot;padding:40px;text-align:center;color:var(--yellow-text);font-weight:700;font-size:48px&quot;>03</div>'"></div>
       </div>
     </div>
     <div class="project-panel__content">
       <h2 class="project-panel__title">TripSlip</h2>
       <p class="project-panel__desc">Designing a multi-sided platform connecting teachers, parents, admins, and venues — turning field trip chaos into a 10-minute workflow.</p>
-      <p class="project-panel__accent" style="color:#b89700">— Launching September 2026</p>
+      <p class="project-panel__accent" style="color:var(--yellow-text)">— Launching September 2026</p>
       <span class="btn btn--dark" style="box-shadow:4px 4px 0 0 var(--yellow)">READ CASE STUDY →</span>
     </div>
   </div>
@@ -478,22 +492,22 @@ button { cursor: pointer; font-family: var(--font); }
     <p class="label">OTHER PROJECTS</p>
     <div class="others__grid">
       <a href="https://the45minutemile.com" target="_blank" rel="noopener" class="ocard">
-        <span class="ocard__cat" style="color:var(--red)">VIBE CODING</span>
+        <span class="ocard__cat" style="color:var(--red-text)">VIBE CODING</span>
         <h3 class="ocard__title">Detroit Transit</h3>
         <p class="ocard__desc">Hackathon winner influencing civic tech in Detroit</p>
-        <span class="ocard__link" style="color:var(--red)">VIEW WEBSITE →</span>
+        <span class="ocard__link" style="color:var(--red-text)">VIEW WEBSITE →</span>
       </a>
       <a href="https://play.google.com/store/apps/details?id=com.urprospects.draftcard&hl=en_US" target="_blank" rel="noopener" class="ocard">
-        <span class="ocard__cat" style="color:var(--yellow)">UX DESIGN</span>
+        <span class="ocard__cat" style="color:var(--yellow-text)">UX DESIGN</span>
         <h3 class="ocard__title">League Proof</h3>
         <p class="ocard__desc">Student athlete recruiting</p>
-        <span class="ocard__link" style="color:var(--yellow)">VIEW APPLICATION →</span>
+        <span class="ocard__link" style="color:var(--yellow-text)">VIEW APPLICATION →</span>
       </a>
       <a href="https://motmot.ai" target="_blank" rel="noopener" class="ocard">
-        <span class="ocard__cat" style="color:#3b82f6">STORYTELLING</span>
+        <span class="ocard__cat" style="color:var(--blue-text)">STORYTELLING</span>
         <h3 class="ocard__title">Motmot</h3>
         <p class="ocard__desc">Making complex information digestible for the public. Built with Webflow.</p>
-        <span class="ocard__link" style="color:#3b82f6">VIEW WEBSITE →</span>
+        <span class="ocard__link" style="color:var(--blue-text)">VIEW WEBSITE →</span>
       </a>
     </div>
   </section>
@@ -566,7 +580,7 @@ button { cursor: pointer; font-family: var(--font); }
     <h2 class="hobbies__head">When I'm not designing <span class="accent">these are what fuel me</span></h2>
     <div class="hobbies__grid">
       <div class="hobby"><div class="hobby__img"><img src="images/yoga.jpg" alt="Yoga" loading="lazy" onerror="this.outerHTML='photo'"></div><h3>Yoga</h3><p>Morning walks and yoga keep my creativity flowing — how I reset and recharge.</p></div>
-      <div class="hobby"><div class="hobby__img"><img src="images/volunteering.jpg" alt="Events &amp; Volunteering" loading="lazy" onerror="this.outerHTML='photo'"></div><h3>Events &amp; Volunteering</h3><p>Finding opportunities to give back — from UX research with <a href="https://floridainnovation.org/" target="_blank" rel="noopener" style="color:var(--red);text-decoration:underline">Florida Community Innovation</a> to Black Tech Saturdays and Developers of Detroit.</p></div>
+      <div class="hobby"><div class="hobby__img"><img src="images/volunteering.jpg" alt="Events &amp; Volunteering" loading="lazy" onerror="this.outerHTML='photo'"></div><h3>Events &amp; Volunteering</h3><p>Finding opportunities to give back — from UX research with <a href="https://floridainnovation.org/" target="_blank" rel="noopener" style="color:var(--red-text);text-decoration:underline">Florida Community Innovation</a> to Black Tech Saturdays and Developers of Detroit.</p></div>
       <div class="hobby"><div class="hobby__img"><img src="images/art.png" alt="Art &amp; Community" loading="lazy" onerror="this.outerHTML='photo'"></div><h3>Art &amp; Community</h3><p>I love visiting museums, making art, and exploring my local community — new restaurants, hidden murals, pop-up markets.</p></div>
     </div>
   </section>
@@ -599,20 +613,20 @@ button { cursor: pointer; font-family: var(--font); }
     </aside>
     <main class="cs__main">
       <section class="csh" id="bs-overview">
-        <p class="csh__tags" style="color:var(--red)">Automotive · Fleet Dashboard · End-to-End · B2B SAAS</p>
+        <p class="csh__tags" style="color:var(--red-text)">Automotive · Fleet Dashboard · End-to-End · B2B SAAS</p>
         <h1 class="csh__title">Bridgestone FleetFix</h1>
         <p class="csh__desc">Consolidated five fragmented fleet tools into one role-adaptive platform. Reducing task completion time by 75% and eliminating usability failures.</p>
-        <p class="csh__award" style="color:var(--red)">— First Place, UMSI 2025 Showcase</p>
+        <p class="csh__award" style="color:var(--red-text)">— First Place, UMSI 2025 Showcase</p>
       </section>
       <div class="csvideo">
         <iframe src="https://www.loom.com/embed/08b1abb5c98d4d45918e18ef1c19ea0d?hideEmbedTopBar=true" title="Bridgestone FleetFix walkthrough" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
       </div>
       <div class="csctx">
-        <div><label style="color:var(--red)">My Role</label><span>Project Manager &amp; Lead Designer</span></div>
-        <div><label style="color:var(--red)">Team</label><span>5 designers &amp; researchers</span></div>
-        <div><label style="color:var(--red)">Timeline</label><span>Oct 2024 to Apr 2025</span></div>
-        <div><label style="color:var(--red)">Tools</label><span>Figma, FigJam</span></div>
-        <div><label style="color:var(--red)">Client</label><span>Bridgestone (Fortune 500)</span></div>
+        <div><label style="color:var(--red-text)">My Role</label><span>Project Manager &amp; Lead Designer</span></div>
+        <div><label style="color:var(--red-text)">Team</label><span>5 designers &amp; researchers</span></div>
+        <div><label style="color:var(--red-text)">Timeline</label><span>Oct 2024 to Apr 2025</span></div>
+        <div><label style="color:var(--red-text)">Tools</label><span>Figma, FigJam</span></div>
+        <div><label style="color:var(--red-text)">Client</label><span>Bridgestone (Fortune 500)</span></div>
       </div>
       <section class="css" id="bs-challenge">
         <p class="css__label">THE CHALLENGE</p>
@@ -638,7 +652,7 @@ button { cursor: pointer; font-family: var(--font); }
         <p class="css__body">Every design decision was driven by direct user feedback from fleet managers and technicians.</p>
         <div class="decision"><p class="decision__num">01</p><h3 class="decision__title">Health Score → Status Breakdown</h3><p class="decision__body">Users found the original health score confusing and arbitrary. I replaced it with a clear percentage breakdown by tire status using consistent color coding throughout.</p><div class="compare"><div><p class="lbl">Before</p><div class="ph"><img src="images/bs-before-health.jpg" alt="Before" loading="lazy" onerror="this.remove()">Before: confusing health score</div></div><div><p class="lbl">After</p><div class="ph"><img src="images/bs-dashboard.jpg" alt="After" loading="lazy" onerror="this.remove()">After: clear status breakdown</div></div></div></div>
         <div class="decision"><p class="decision__num">02</p><h3 class="decision__title">Monthly Calendar → Weekly Inspections</h3><p class="decision__body">Fleet managers deal with rapidly changing daily issues. I made weekly the default with color-coded status indicators and per-technician scheduling.</p></div>
-        <div class="decision"><p class="decision__num">03</p><h3 class="decision__title">Checkboxes → Distinct Calls to Action</h3><p class="decision__body">Checkboxes on tire alerts were an unclear call to action. I replaced them with explicit 'Select Response' buttons, making the intended action clear.</p><div class="compare"><div><p class="lbl">Before</p><div class="ph"><img src="images/bs-alerts.jpg" alt="Before" loading="lazy" onerror="this.remove()">Before: ambiguous checkboxes</div></div><div><p class="lbl">After</p><div class="ph"><img src="images/bs-after-checkbox.jpg" alt="After" loading="lazy" onerror="this.remove()">After: clear action buttons</div></div></div></div>
+        <div class="decision"><p class="decision__num">03</p><h3 class="decision__title">Checkboxes → Distinct Calls to Action</h3><p class="decision__body">Checkboxes on tire alerts were an unclear call to action. I replaced them with explicit 'Select Response' buttons, making the intended action clear.</p></div>
       </section>
       <section class="css" id="bs-impact">
         <p class="css__label">THE IMPACT</p>
@@ -736,18 +750,18 @@ button { cursor: pointer; font-family: var(--font); }
     </aside>
     <main class="cs__main">
       <section class="csh" id="ts-overview">
-        <p class="csh__tags" style="color:var(--yellow)">Ed-Tech · Multi-User Platform · User Research · Product Design</p>
+        <p class="csh__tags" style="color:var(--yellow-text)">Ed-Tech · Multi-User Platform · User Research · Product Design</p>
         <h1 class="csh__title">TripSlip</h1>
         <p class="csh__desc">Designing a multi-sided platform that connects teachers, parents, school admins, and venues — turning field trip chaos into a 10-minute workflow.</p>
-        <p class="csh__award" style="color:var(--yellow)">— In progress, Version 1 launching September 2026</p>
+        <p class="csh__award" style="color:var(--yellow-text)">— In progress, Version 1 launching September 2026</p>
       </section>
       <div class="csimg"><div class="ph"><img src="images/tripslip-hero.png" alt="TripSlip hero" loading="lazy" onerror="this.remove()">TripSlip multi-view hero</div></div>
       <div class="csctx">
-        <div><label style="color:var(--yellow)">My Role</label><span>Contract Product Designer</span></div>
-        <div><label style="color:var(--yellow)">Client</label><span>TripSlip (Startup)</span></div>
-        <div><label style="color:var(--yellow)">Timeline</label><span>Ongoing since June 2025</span></div>
-        <div><label style="color:var(--yellow)">Tools</label><span>Figma, FigJam, Notion</span></div>
-        <div><label style="color:var(--yellow)">Research</label><span>4 user types, 20+ planned interviews</span></div>
+        <div><label style="color:var(--yellow-text)">My Role</label><span>Contract Product Designer</span></div>
+        <div><label style="color:var(--yellow-text)">Client</label><span>TripSlip (Startup)</span></div>
+        <div><label style="color:var(--yellow-text)">Timeline</label><span>Ongoing since June 2025</span></div>
+        <div><label style="color:var(--yellow-text)">Tools</label><span>Figma, FigJam, Notion</span></div>
+        <div><label style="color:var(--yellow-text)">Research</label><span>4 user types, 20+ planned interviews</span></div>
       </div>
       <section class="css" id="ts-challenge"><p class="css__label">THE CHALLENGE</p><h2 class="css__title">Four users, one platform, zero precedent.</h2><p class="css__body">Field trip coordination is broken. Teachers burn 10+ hours weekly chasing permission slips. TripSlip is the first platform to connect all four parties into one workflow.</p></section>
       <section class="css" id="ts-views"><p class="css__label">FOUR PERSPECTIVES, ONE PLATFORM</p><h2 class="css__title">Every user sees what matters to them</h2><p class="css__body">Each user type has a distinct mental model, priority set, and workflow.</p>
@@ -770,7 +784,7 @@ button { cursor: pointer; font-family: var(--font); }
         <div class="decision"><p class="decision__num">03</p><h3 class="decision__title">IA before screens, always</h3><p class="decision__body">With four user types and 60+ total screens, I built the full information architecture in FigJam first, catching feature overlap early.</p></div>
       </section>
       <section class="css" id="ts-status"><p class="css__label">WHERE IT STANDS</p><div class="stats"><div class="stat"><p class="stat__num">30+</p><p class="stat__lbl">Teacher screens</p></div><div class="stat"><p class="stat__num">4</p><p class="stat__lbl">User types</p></div><div class="stat"><p class="stat__num">2/20</p><p class="stat__lbl">Research interviews</p></div><div class="stat"><p class="stat__num">7</p><p class="stat__lbl">Functional sections</p></div><div class="stat"><p class="stat__num">Sep 1</p><p class="stat__lbl">Launch target</p></div></div>
-        <p style="text-align:center;font-weight:700;font-size:16px;color:var(--yellow);margin-top:12px">This project is actively in progress.</p>
+        <p style="text-align:center;font-weight:700;font-size:16px;color:var(--yellow-text);margin-top:12px">This project is actively in progress.</p>
         <div style="text-align:center;margin-top:8px"><a href="https://trytripslip.com" target="_blank" rel="noopener" class="btn btn--outline">VISIT TRYTRIPSLIP.COM ↗</a></div>
       </section>
       <section class="css" id="ts-reflection"><p class="css__label">WHAT I'M LEARNING</p><p class="css__body">Designing for a market that doesn't exist yet means every interview reshapes the product. The biggest shift so far: teachers don't want more features — they want fewer decisions. Working under mentorship at Newlab has sharpened how I scope ambiguity and communicate trade-offs.</p></section>
