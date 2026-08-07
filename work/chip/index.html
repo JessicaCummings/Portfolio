@@ -465,7 +465,6 @@ html { scroll-behavior: smooth; }
 <div class="lb" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image"><button class="lb__close" id="lbClose" aria-label="Close">&times;</button><img id="lbImg" src="" alt=""><p class="lb__cap" id="lbCap"></p></div>
 
 <script>
-<script>
 
 /* ---- mobile nav ---- */
 function toggleNav() {
@@ -526,8 +525,6 @@ window.addEventListener('scroll', () => {
   links.forEach(l => l.classList.remove('on'));
   if (current) current.classList.add('on');
 }, { passive: true });
-</script>
-
 /* ---- scroll reveal ---- */
 (function(){
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
