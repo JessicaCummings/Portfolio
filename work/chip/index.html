@@ -348,27 +348,30 @@ button { cursor: pointer; font-family: var(--font); }
 
 /* ============ MOTION ============ */
 html { scroll-behavior: smooth; }
-/* scroll reveal */
-.reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s cubic-bezier(.22,.8,.3,1), transform .6s cubic-bezier(.22,.8,.3,1); will-change: opacity, transform; }
-.reveal.in { opacity: 1; transform: none; }
-.reveal.d1 { transition-delay: .07s; } .reveal.d2 { transition-delay: .14s; }
-.reveal.d3 { transition-delay: .21s; } .reveal.d4 { transition-delay: .28s; }
-/* page enter */
-@keyframes pageIn { from { opacity:0; transform: translateY(10px);} to {opacity:1; transform:none;} }
-.page.active { animation: pageIn .45s cubic-bezier(.22,.8,.3,1) both; }
-/* hero letters */
-@keyframes heroIn { from { opacity:0; transform: translateY(24px) skewY(3deg);} to {opacity:1; transform:none;} }
-.hero__name .first, .hero__name .last { animation: heroIn .7s cubic-bezier(.22,.8,.3,1) both; }
-.hero__name .last { animation-delay: .1s; }
-.hero__tag { animation: heroIn .6s cubic-bezier(.22,.8,.3,1) both; }
-/* hover micro-interactions */
+
+/* Scroll reveal — ONLY hides content once JS has confirmed it can reveal it.
+   Without .anim-ready everything is fully visible (fail-safe). */
+html.anim-ready .reveal { opacity: 0; transform: translateY(22px);
+  transition: opacity .6s cubic-bezier(.22,.8,.3,1), transform .6s cubic-bezier(.22,.8,.3,1); }
+html.anim-ready .reveal.in { opacity: 1 !important; transform: none !important; }
+html.anim-ready .reveal.d1 { transition-delay: .06s; }
+html.anim-ready .reveal.d2 { transition-delay: .12s; }
+html.anim-ready .reveal.d3 { transition-delay: .18s; }
+
+/* hero entrance */
+@keyframes heroIn { from { opacity:0; transform: translateY(20px);} to {opacity:1; transform:none;} }
+html.anim-ready .hero__name .first, html.anim-ready .hero__name .last,
+html.anim-ready .hero__tag { animation: heroIn .65s cubic-bezier(.22,.8,.3,1) both; }
+html.anim-ready .hero__name .last { animation-delay: .08s; }
+
+/* hover micro-interactions (safe — no opacity involved) */
 .project-panel { transition: background .25s ease, transform .25s cubic-bezier(.22,.8,.3,1); }
 .project-panel:hover { transform: translateX(4px); }
 .project-panel__preview .browser-mock { transition: transform .35s cubic-bezier(.22,.8,.3,1), box-shadow .35s ease; }
 .project-panel:hover .browser-mock { transform: translate(-3px,-3px); box-shadow: 10px 10px 0 0 var(--black); }
-.btn, .btn--dark, .btn--yellow, .btn--outline { transition: transform .18s cubic-bezier(.22,.8,.3,1), box-shadow .18s ease; }
-.btn:hover, .btn--dark:hover, .btn--yellow:hover, .btn--outline:hover { transform: translate(-2px,-2px); }
-.btn:active, .btn--dark:active, .btn--yellow:active, .btn--outline:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 0 var(--black) !important; }
+.btn { transition: transform .18s cubic-bezier(.22,.8,.3,1); }
+.btn:hover { transform: translate(-2px,-2px); }
+.btn:active { transform: translate(2px,2px); }
 .ocard { transition: transform .2s cubic-bezier(.22,.8,.3,1), box-shadow .2s ease; }
 .stat { transition: transform .25s cubic-bezier(.22,.8,.3,1); }
 .stat:hover { transform: translateY(-4px); }
@@ -380,17 +383,18 @@ html { scroll-behavior: smooth; }
 .nav__link:hover::after { right:0; }
 .next__title { transition: transform .22s cubic-bezier(.22,.8,.3,1); display:inline-block; }
 .next__title:hover { transform: translateX(6px); }
-.cs__nav a { transition: border-left-color .2s ease, color .2s ease, padding-left .2s ease; }
+.cs__nav a { transition: color .2s ease, padding-left .2s ease; }
 .cs__nav a:hover { padding-left: 4px; }
+
 /* page exit wipe */
 .wipe { position: fixed; inset: 0; background: var(--black); z-index: 9999; transform: translateY(100%); pointer-events: none; }
-.wipe.on { animation: wipeUp .5s cubic-bezier(.7,0,.3,1) forwards; }
-@keyframes wipeUp { 0% { transform: translateY(100%);} 100% { transform: translateY(0);} }
-/* RESPECT REDUCED MOTION — kill everything */
+.wipe.on { animation: wipeUp .45s cubic-bezier(.7,0,.3,1) forwards; }
+@keyframes wipeUp { to { transform: translateY(0); } }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal { opacity:1 !important; transform:none !important; transition:none !important; }
-  .page.active, .hero__name .first, .hero__name .last, .hero__tag { animation: none !important; }
+  html.anim-ready .reveal { opacity:1 !important; transform:none !important; transition:none !important; }
+  html.anim-ready .hero__name .first, html.anim-ready .hero__name .last, html.anim-ready .hero__tag { animation:none !important; }
   .project-panel:hover, .project-panel:hover .browser-mock, .btn:hover, .stat:hover,
   .screen:hover .ph img, .csimg:hover img, .next__title:hover { transform:none !important; }
   .wipe, .wipe.on { display:none !important; animation:none !important; }
@@ -525,32 +529,46 @@ window.addEventListener('scroll', () => {
   links.forEach(l => l.classList.remove('on'));
   if (current) current.classList.add('on');
 }, { passive: true });
-/* ---- scroll reveal ---- */
+/* ---- scroll reveal (fail-safe) ---- */
 (function(){
+  var docEl = document.documentElement;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var sel = '.project-panel, .ocard, .stat, .screen, .decision, .view, .hobby, .css, .csh, .quote-break, .contact-footer, .story__block, .skill-col';
-  var els = document.querySelectorAll(sel);
-  if (reduce) { els.forEach(function(e){ e.classList.add('in'); }); return; }
-  els.forEach(function(e,i){ e.classList.add('reveal'); if(i%4) e.classList.add('d'+(i%4)); });
-  if (!('IntersectionObserver' in window)) { els.forEach(function(e){e.classList.add('in');}); return; }
+  var sel = '.project-panel, .ocard, .stat, .screen, .decision, .view, .hobby, .css, .csh, .quote-break, .contact-footer';
+  var els = Array.prototype.slice.call(document.querySelectorAll(sel));
+  if (!els.length) return;
+
+  function showAll(){ els.forEach(function(e){ e.classList.add('in'); }); }
+
+  if (reduce || !('IntersectionObserver' in window)) { docEl.classList.add('anim-ready'); showAll(); return; }
+
+  els.forEach(function(e,i){ e.classList.add('reveal'); if(i%3) e.classList.add('d'+(i%3)); });
+  docEl.classList.add('anim-ready');
+
   var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
-  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    entries.forEach(function(en){
+      if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { rootMargin: '120px 0px 0px 0px', threshold: 0 });
   els.forEach(function(e){ io.observe(e); });
+
+  /* SAFETY NET: if anything goes wrong, never leave content hidden */
+  setTimeout(showAll, 2500);
+  window.addEventListener('load', function(){ setTimeout(showAll, 1200); });
 })();
 
-/* ---- page transition wipe on internal navigation ---- */
+/* ---- page transition wipe ---- */
 (function(){
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var w = document.createElement('div'); w.className='wipe'; document.body.appendChild(w);
   document.addEventListener('click', function(e){
-    var a = e.target.closest('a[href]');
+    var a = e.target.closest ? e.target.closest('a[href]') : null;
     if(!a) return;
     var href = a.getAttribute('href');
-    if(!href || href.charAt(0)==='#' || a.target==='_blank' || href.indexOf('mailto:')===0 || href.indexOf('http')===0) return;
+    if(!href || href.charAt(0)==='#' || a.target==='_blank' ||
+       href.indexOf('mailto:')===0 || href.indexOf('http')===0 || /\.pdf$/i.test(href)) return;
     e.preventDefault();
     w.classList.add('on');
-    setTimeout(function(){ window.location.href = href; }, 420);
+    setTimeout(function(){ window.location.href = href; }, 380);
   });
   window.addEventListener('pageshow', function(){ w.classList.remove('on'); });
 })();
@@ -559,10 +577,9 @@ window.addEventListener('scroll', () => {
 (function(){
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   document.addEventListener('click', function(e){
-    var a = e.target.closest('a[href^="#"]');
+    var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
     if(!a) return;
-    var id = a.getAttribute('href').slice(1);
-    var t = document.getElementById(id);
+    var t = document.getElementById(a.getAttribute('href').slice(1));
     if(!t) return;
     e.preventDefault();
     window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 90, behavior:'smooth' });
