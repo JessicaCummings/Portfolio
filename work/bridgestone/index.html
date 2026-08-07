@@ -399,6 +399,32 @@ html.anim-ready .hero__name .last { animation-delay: .08s; }
   .screen:hover .ph img, .csimg:hover img, .next__title:hover { transform:none !important; }
   .wipe, .wipe.on { display:none !important; animation:none !important; }
 }
+
+/* ============ CUSTOM ARROW CURSOR ============ */
+html.cursor-on, html.cursor-on * { cursor: none !important; }
+.cur { position: fixed; top: 0; left: 0; width: 26px; height: 30px; pointer-events: none;
+  z-index: 9999; opacity: 0; transition: opacity .2s ease; will-change: transform; }
+html.cursor-on .cur { opacity: 1; }
+.cur svg { display: block; overflow: visible;
+  transition: transform .18s cubic-bezier(.22,.8,.3,1); transform-origin: 2px 2px; }
+.cur .cur-shadow { fill: var(--orange); }
+.cur .cur-body   { fill: var(--black); }
+/* over an interactive element — grow + flip the fill */
+html.cursor-hot .cur svg { transform: scale(1.45) rotate(-12deg); }
+html.cursor-hot .cur .cur-body   { fill: var(--orange); }
+html.cursor-hot .cur .cur-shadow { fill: var(--black); }
+/* pressed */
+html.cursor-down .cur svg { transform: scale(1.05) rotate(0deg); }
+/* over text — become a caret bar so text is still selectable-feeling */
+html.cursor-text .cur .cur-arrow { opacity: 0; }
+html.cursor-text .cur .cur-bar   { opacity: 1; }
+.cur .cur-bar { opacity: 0; transition: opacity .15s ease; }
+.cur .cur-arrow { transition: opacity .15s ease; }
+/* never on touch / reduced-motion — native cursor stays */
+@media (hover: none), (pointer: coarse) { .cur { display: none !important; }
+  html.cursor-on, html.cursor-on * { cursor: auto !important; } }
+@media (prefers-reduced-motion: reduce) { .cur { display: none !important; }
+  html.cursor-on, html.cursor-on * { cursor: auto !important; } }
 </style>
 <body>
 
@@ -620,6 +646,57 @@ window.addEventListener('scroll', () => {
     e.preventDefault();
     window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 90, behavior:'smooth' });
   });
+})();
+
+/* ---- custom arrow cursor (fine pointers only; native restored otherwise) ---- */
+(function(){
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!fine || reduce) return;
+
+  var docEl = document.documentElement;
+  var el = document.createElement('div');
+  el.className = 'cur';
+  el.setAttribute('aria-hidden','true');
+  el.innerHTML =
+    '<svg width="26" height="30" viewBox="0 0 26 30">' +
+      '<g class="cur-arrow">' +
+        '<path class="cur-shadow" d="M4 3 L4 22.5 L9 17.6 L12.4 25 L15.7 23.4 L12.4 16.3 L18.8 16.3 Z"/>' +
+        '<path class="cur-body"   d="M1 1 L1 20.5 L6 15.6 L9.4 23 L12.7 21.4 L9.4 14.3 L15.8 14.3 Z"/>' +
+      '</g>' +
+      '<g class="cur-bar">' +
+        '<rect class="cur-shadow" x="9"  y="2" width="3" height="22"/>' +
+        '<rect class="cur-body"   x="7"  y="0" width="3" height="22"/>' +
+      '</g>' +
+    '</svg>';
+  document.body.appendChild(el);
+
+  var mx=0, my=0, cx=0, cy=0, started=false;
+
+  document.addEventListener('mousemove', function(e){
+    mx=e.clientX; my=e.clientY;
+    if(!started){ started=true; cx=mx; cy=my; docEl.classList.add('cursor-on'); }
+    var t=e.target;
+    var hot = t.closest && t.closest('a,button,[role="button"],input,select,textarea,.project-panel,.ocard,.screen,.csimg,.next__title,.subnav__btn,.nav__toggle,.ph img');
+    var txt = t.closest && t.closest('p,h1,h2,h3,h4,li,blockquote');
+    docEl.classList.toggle('cursor-hot', !!hot);
+    docEl.classList.toggle('cursor-text', !!txt && !hot);
+  }, {passive:true});
+
+  document.addEventListener('mousedown', function(){ docEl.classList.add('cursor-down'); }, {passive:true});
+  document.addEventListener('mouseup',   function(){ docEl.classList.remove('cursor-down'); }, {passive:true});
+  document.addEventListener('mouseleave',function(){ docEl.classList.remove('cursor-on'); }, {passive:true});
+  document.addEventListener('mouseenter',function(){ if(started) docEl.classList.add('cursor-on'); }, {passive:true});
+  /* restore native cursor if a text field is focused via keyboard */
+  document.addEventListener('focusin', function(e){
+    if(e.target.matches && e.target.matches('input,textarea,select')) docEl.classList.remove('cursor-on');
+  });
+
+  (function loop(){
+    cx += (mx-cx)*0.35; cy += (my-cy)*0.35;
+    el.style.transform='translate('+cx+'px,'+cy+'px)';
+    requestAnimationFrame(loop);
+  })();
 })();
 
 </script>
