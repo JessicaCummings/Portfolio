@@ -428,6 +428,40 @@ html.cursor-text .cur .cur-bar   { opacity: 1; }
   html.cursor-on, html.cursor-on * { cursor: auto !important; } }
 @media (prefers-reduced-motion: reduce) { .cur { display: none !important; }
   html.cursor-on, html.cursor-on * { cursor: auto !important; } }
+
+  @media(max-width:1024px){
+    .hero{gap:32px}
+    .hero__name{font-size:64px;letter-spacing:-1px}
+    .hero__photo{width:300px;height:380px}
+    .project-panel{flex-direction:column}
+    .project-panel__sidebar{width:100%;flex-direction:row;align-items:center;justify-content:flex-start;gap:16px;padding:16px 24px;border-right:none;border-bottom:2px solid var(--black)}
+    .project-panel__num{font-size:40px}
+    .project-panel__tags{text-align:left}
+    .project-panel__preview{width:100%;border-right:none;border-bottom:2px solid var(--black)}
+    .project-panel__preview .browser-mock__body{height:240px}
+    .project-panel__content{padding:32px}
+    .project-panel__title{font-size:32px}
+    .project-panel__desc{max-width:100%}
+  }
+  @media(max-width:768px){
+    .hero{flex-direction:column;gap:28px;padding:32px var(--pad) 40px}
+    .hero__left{width:100%}
+    .hero__photo{width:100%;height:340px;box-shadow:8px 8px 0 0 var(--black)}
+    .hero__name{font-size:clamp(40px,13vw,60px);letter-spacing:-1px}
+    .hero__name .last{-webkit-text-stroke-width:2px}
+    .subnav{gap:8px;margin-top:20px}
+    .subnav__btn{min-height:44px;display:inline-flex;align-items:center;padding:8px 12px;border:2px solid var(--black)}
+    .subnav__btn.on{padding:8px 12px}
+    .tab-panel .tab-statement{font-size:20px}
+    .project-panel__sidebar{padding:14px 20px}
+    .project-panel__num{font-size:34px}
+    .project-panel__preview .browser-mock__body{height:180px}
+    .project-panel__content{padding:24px}
+    .project-panel__title{font-size:28px}
+    .nav__logo{display:inline-flex;align-items:center;min-height:44px}
+    .nav__toggle{min-width:44px;min-height:44px;align-items:center;justify-content:center}
+    .contact-footer__links a{display:inline-block;padding:12px 6px}
+  }
 </style>
 <body>
 
