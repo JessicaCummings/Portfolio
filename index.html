@@ -462,6 +462,10 @@ html.cursor-text .cur .cur-bar   { opacity: 1; }
     .nav__toggle{min-width:44px;min-height:44px;align-items:center;justify-content:center}
     .contact-footer__links a{display:inline-block;padding:12px 6px}
   }
+  @media(min-width:1025px){
+    .hero{justify-content:center;gap:56px}
+    .hero__left{flex:0 1 620px}
+  }
 </style>
 <body>
 
@@ -522,7 +526,7 @@ html.cursor-text .cur .cur-bar   { opacity: 1; }
     </div>
 
     <div class="hero__photo">
-      <img src="images/headshot.jpg" alt="Jess Cummings" loading="lazy" onerror="this.style.display='none'">
+      <img src="images/headshot.jpg" alt="Jess Cummings" fetchpriority="high" onerror="this.style.display='none'">
     </div>
   </section>
 
