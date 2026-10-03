@@ -1,7 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-<rect width="32" height="32" fill="#0a0a0a"/>
-<g fill="none" stroke="#ff5c00" stroke-width="3.9">
-<path d="M9.25 7.55v11.95a3 3 0 0 1-6 0"/>
-<path d="M25.98 10.68a6.5 6.5 0 1 0 0 10.65"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="18" fill="#1F4D35"/><text x="32" y="29" text-anchor="middle" font-family="Poppins, Arial Black, sans-serif" font-weight="800" font-size="26" letter-spacing="-2"><tspan fill="#FFB089">J</tspan><tspan fill="#FFC94D">C</tspan></text><text x="32" y="53" text-anchor="middle" font-family="Poppins, Arial Black, sans-serif" font-weight="800" font-size="26" letter-spacing="-2" fill="#D4EDC2">UX</text></svg>
