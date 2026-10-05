@@ -62,7 +62,7 @@ html.jc-js .reveal.in{opacity:1;transform:none}@media (prefers-reduced-motion: r
   .page nav{flex-wrap:wrap;height:auto!important;padding-top:16px!important;padding-bottom:16px!important}
   .page h1{font-size:clamp(44px,12vw,84px)!important}
   .page h2{font-size:clamp(36px,9vw,56px)!important}
-  .page .footer-name{font-size:clamp(48px,14.5vw,194px)!important;white-space:normal!important;margin-top:32px!important}
+  .page .footer-cta{font-size:clamp(40px,10.5vw,150px)!important;white-space:normal!important;margin-top:32px!important}
   .page .name-mark{font-size:clamp(52px,14.5vw,194px)!important;white-space:normal!important}
   .page .hide-sm{display:none!important}
   .page .hero-art{zoom:.62;height:560px;margin:0 auto;width:540px}
@@ -112,7 +112,7 @@ html.jc-js .reveal.in{opacity:1;transform:none}@media (prefers-reduced-motion: r
   <main id="main" style="display: flex; flex-direction: column">
     <section aria-labelledby="story-h" style="box-sizing: border-box; padding: 120px 64px 0; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px">
       <div style="grid-column: span 4; display: flex; flex-direction: column; gap: 12px">
-        <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #B3390A">01 · My story</span>
+        <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #B3390A">My story</span>
         <h2 id="story-h" style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 56px; line-height: 1; letter-spacing: -0.04em; color: #133224">Why I design</h2>
       </div>
       <div style="grid-column: 6 / span 7; display: flex; flex-direction: column; gap: 24px">
@@ -126,7 +126,7 @@ html.jc-js .reveal.in{opacity:1;transform:none}@media (prefers-reduced-motion: r
     <section aria-labelledby="a11y-h" style="box-sizing: border-box; padding: 140px 64px 0; display: flex; flex-direction: column; gap: 40px">
       <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: end">
         <div style="grid-column: span 7; display: flex; flex-direction: column; gap: 12px">
-          <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #B3390A">02 · How I work</span>
+          <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #B3390A">How I work</span>
           <h2 id="a11y-h" style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 64px; line-height: 1; letter-spacing: -0.04em; color: #133224">Accessible by default</h2>
         </div>
         <p style="grid-column: 9 / span 4; margin: 0; font-size: 18px; line-height: 1.55; color: #4A544C">This site follows the same rules: WCAG 2.2 AA contrast, full keyboard support and screen-reader landmarks.</p>
@@ -140,7 +140,7 @@ html.jc-js .reveal.in{opacity:1;transform:none}@media (prefers-reduced-motion: r
 
     <section aria-labelledby="skills-h" style="box-sizing: border-box; padding: 140px 64px 0; display: flex; flex-direction: column; gap: 40px">
       <div style="display: flex; flex-direction: column; gap: 12px">
-        <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #B3390A">03 · What I bring</span>
+        <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #B3390A">What I bring</span>
         <h2 id="skills-h" style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 64px; line-height: 1; letter-spacing: -0.04em; color: #133224">Skills &amp; toolkit</h2>
       </div>
       <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px">
@@ -153,7 +153,7 @@ html.jc-js .reveal.in{opacity:1;transform:none}@media (prefers-reduced-motion: r
 
     <section aria-labelledby="off-h" style="box-sizing: border-box; padding: 140px 64px 0; display: flex; flex-direction: column; gap: 40px">
       <div style="display: flex; flex-direction: column; gap: 12px">
-        <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #B3390A">04 · Off the clock</span>
+        <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #B3390A">Off the clock</span>
         <h2 id="off-h" style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 64px; line-height: 1; letter-spacing: -0.04em; color: #133224">What fuels me</h2>
       </div>
       <ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
@@ -166,8 +166,7 @@ html.jc-js .reveal.in{opacity:1;transform:none}@media (prefers-reduced-motion: r
 
   <footer id="contact" aria-labelledby="contact-h" style="flex-grow: 1; margin: 140px 12px 12px; border-radius: 32px; background: #133224; color: #FFFFFF; box-sizing: border-box; padding: 64px 48px 36px; display: flex; flex-direction: column; justify-content: space-between">
     <div style="display: flex; flex-direction: column; gap: 20px">
-      <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #B7E08F">05 · Contact</span>
-      <h2 id="contact-h" style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 112px; letter-spacing: -0.05em; line-height: 0.95"><a href="mailto:jessicacummings2021@gmail.com" style="color: #B7E08F">Let's work together <span aria-hidden="true" class="nudge">→</span></a></h2>
+      <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #B7E08F">Contact</span>
       <p style="margin: 0; font-size: 19px; color: #E4EDE0">Open to full-time product design roles and select freelance. Based in Detroit, open to remote and relocation.</p>
     </div>
     <div style="display: flex; justify-content: space-between; align-items: center; font-size: 16px">
@@ -179,7 +178,7 @@ html.jc-js .reveal.in{opacity:1;transform:none}@media (prefers-reduced-motion: r
         <li><a href="/JessCummings_Resume.pdf" style="display: inline-block; padding: 12px 14px; color: #FFFFFF">Resume (PDF)</a></li>
       </ul>
     </div>
-    <p class="footer-name" aria-hidden="true" style="margin: 48px 0 0; text-align: center; white-space: nowrap; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 214px; line-height: 0.8; letter-spacing: -0.06em; color: #B7E08F">Jess Cummings</p>
+    <h2 id="contact-h" class="footer-cta" style="margin: 56px 0 0; white-space: nowrap; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 150px; line-height: 0.9; letter-spacing: -0.05em"><a href="mailto:jessicacummings2021@gmail.com" style="color: #B7E08F">Let's work together <span aria-hidden="true" class="nudge">→</span></a></h2>
   </footer>
 </div>
 <script src="/assets/motion.js"></script>
