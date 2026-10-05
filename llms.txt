@@ -1,0 +1,32 @@
+# Jess Cummings — Product Designer & Accessibility Specialist
+
+> Jess Cummings is a product designer and accessibility specialist based in Detroit, Michigan. Jess works across UX design, UX research and design systems, and designs to WCAG 2.2 AA from the first wireframe. Open to full-time product design roles and select freelance; based in Detroit, open to remote and relocation.
+
+## At a glance
+
+- Role: Product designer (UX design, UX research, UI, design systems, accessibility)
+- Location: Detroit, MI, USA — open to remote and relocation
+- Education: University of Michigan
+- Award: 1st place, University of Michigan School of Information (UMSI) 2025 Showcase (Bridgestone FleetFix)
+- Tools: Figma, FigJam, Webflow, Notion, Photoshop, GitHub, Claude, Storybook
+- Contact: jessicacummings2021@gmail.com
+- LinkedIn: https://www.linkedin.com/in/jess-l-cummings/
+- GitHub: https://github.com/JessicaCummings
+- Resume (PDF): https://jesscummingsportfolio.com/JessCummings_Resume.pdf
+
+## Case studies
+
+- [TripSlip — UX design](https://jesscummingsportfolio.com/work/tripslip/): Field-trip platform for K-12 schools, families, venues and bus companies. Jess ran 7 interviews across 4 user groups, built an affinity map, mapped the five-persona flow and designed 3 of the 5 views (school admin, teacher, parent) across 100+ desktop, phone and tablet screens, on a WCAG 2.2 AA UI kit. Version 1 launched September 2026; a trip goes from idea to ready in about 10 minutes. Timeline: June 2025 – ongoing.
+- [Bridgestone FleetFix — UX research](https://jesscummingsportfolio.com/work/bridgestone/): Jess was project manager and lead designer for a team of five, researching with 8 fleet managers and technicians and running 2 rounds of usability testing with 20 users. Five tire-health tools became one role-adaptive platform: 75% fewer errors, 7.5-second average task time, +90% workflow efficiency, 70+ accessibility fixes before handoff and zero failed usability tests. 1st place at the UMSI 2025 Showcase. Timeline: Oct 2024 – Apr 2025. (Under NDA; details on request.)
+- [Chip Motors — Design systems](https://jesscummingsportfolio.com/work/chip/): Brand and web designer for a Detroit startup. Jess unified scattered mini-sites into one Webflow site (6+ pages) built from 15 master components used 82 times. Live at https://chipmotors.com.
+
+## More work
+
+- The 45 Minute Mile (hackathon winner, civic tech): https://the45minutemile.com/
+- Motmot (storytelling, Webflow): https://motmot.ai/
+- League Proof (UX design, Android): https://play.google.com/store/apps/details?id=com.urprospects.draftcard
+
+## Pages
+
+- [Home](https://jesscummingsportfolio.com/)
+- [About](https://jesscummingsportfolio.com/about/): Story ("built for people left out"), how Jess works ("accessible by default"), skills and toolkit.
