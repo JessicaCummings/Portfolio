@@ -18,9 +18,36 @@ footer :focus-visible{outline-color:#B7E08F}
 .skip{position:absolute;left:-9999px;top:16px;z-index:10;padding:12px 18px;background:#133224;color:#FFFFFF;border-radius:8px;font-weight:600}
 .skip:focus{left:24px}
 .jc-tile{transition:transform .25s ease}.jc-logo:hover .jc-tile,.jc-logo:focus-visible .jc-tile{transform:rotate(-6deg) scale(1.06)}@media (prefers-reduced-motion: reduce){.jc-tile{transition:none}.jc-logo:hover .jc-tile,.jc-logo:focus-visible .jc-tile{transform:none}}
+/* jc-motion: cursor + motion layer. Only transform/opacity animate; all motion is off under prefers-reduced-motion. */
+@media (pointer: fine){html,body{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='14' cy='14' r='11' fill='%23FFFFFF'/%3E%3Ccircle cx='14' cy='14' r='8' fill='%23FF5F2E' stroke='%23133224' stroke-width='2.5'/%3E%3C/svg%3E") 14 14,auto}a,button,summary,label,[role=button]{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%23FFFFFF'/%3E%3Ccircle cx='20' cy='20' r='15' fill='%23B7E08F' stroke='%23133224' stroke-width='2.5'/%3E%3Cpath d='M15 25 L25 15 M17 15 H25 V23' fill='none' stroke='%23133224' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 20 20,pointer}}
+.nudge,.nudge-down,.nudge-left{display:inline-block}
+@media (prefers-reduced-motion: no-preference){
+@keyframes jc-rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes jc-pop{from{opacity:0;transform:scale(.9) rotate(-4deg)}to{opacity:1;transform:none}}
+@keyframes jc-float{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(6px,-12px) rotate(3deg)}}
+.rise{animation:jc-rise .8s cubic-bezier(.2,.8,.2,1) both}
+.d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}.d4{animation-delay:.45s}
+.pop{animation:jc-pop 1s cubic-bezier(.2,.8,.2,1) .25s both}
+.float{animation:jc-float 9s ease-in-out infinite;transform-origin:50% 50%}
+.btn{transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 10px 20px -12px rgba(19,50,36,.55)}.btn:active{transform:translateY(0) scale(.97)}
+.lift{transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s}
+.lift:hover,.lift:focus-within{transform:translateY(-8px);box-shadow:0 28px 50px -30px rgba(19,50,36,.5)}
+.lift .tilt{transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.lift:hover .tilt,.lift:focus-within .tilt{transform:rotate(0deg) scale(1.03)!important}
+.nudge,.nudge-down,.nudge-left{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+a:hover .nudge,a:focus-visible .nudge{transform:translate(4px,-4px)}
+a:hover .nudge-down,a:focus-visible .nudge-down{transform:translateY(4px)}
+a:hover .nudge-left,a:focus-visible .nudge-left{transform:translateX(-4px)}
+}
+/* /jc-motion */
 </style>
 <style>
-html{scroll-behavior:smooth}@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+html{scroll-behavior:smooth}
+.jc-ring{position:fixed;left:-22px;top:-22px;width:44px;height:44px;box-sizing:border-box;border:2px solid #FF5F2E;border-radius:50%;pointer-events:none;z-index:9999;opacity:0;transition:opacity .25s,scale .3s cubic-bezier(.2,.8,.2,1),background-color .25s,border-color .25s}
+.jc-ring.on{opacity:1}.jc-ring.hot{scale:1.7;background-color:rgba(183,224,143,.28);border-color:#133224}.jc-ring.down{scale:.7}
+html.jc-js .reveal{opacity:0;transform:translateY(36px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+html.jc-js .reveal.in{opacity:1;transform:none}@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
 .page{width:1440px!important;height:auto!important;margin:0 auto;overflow-x:clip!important}
 @media (min-width: 900px) and (max-width: 1439px){.page{zoom:calc(var(--vw, 1440) / 1440)}}
 @media (max-width: 899px){.page{width:100%!important}}
@@ -68,16 +95,16 @@ html{scroll-behavior:smooth}@media (prefers-reduced-motion: reduce){html{scroll-
   </nav>
 
   <header style="position: relative; height: 680px; margin: 0 12px; border-radius: 32px; overflow: hidden; background: #FF5F2E; box-sizing: border-box; padding: 64px 52px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px">
-    <div style="position: relative; grid-column: span 7; display: flex; flex-direction: column; justify-content: flex-end; gap: 24px">
+    <div class="rise" style="position: relative; grid-column: span 7; display: flex; flex-direction: column; justify-content: flex-end; gap: 24px">
       <p style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: 30px; color: #15201A">hey, I'm Jess.</p>
       <h1 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 120px; line-height: 0.88; letter-spacing: -0.055em; color: #15201A">Built for people left out</h1>
       <p style="margin: 0; max-width: 560px; font-size: 20px; line-height: 1.5">Product designer and accessibility specialist in Detroit. I make complex systems feel simple and look beautiful.</p>
       <div style="display: flex; gap: 12px">
-        <a href="mailto:jessicacummings2021@gmail.com" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; border-radius: 999px; background: #133224; color: #FFFFFF; font-size: 16px; font-weight: 600">Email me</a>
-        <a href="https://www.linkedin.com/in/jess-l-cummings/" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; border-radius: 999px; background: #FFFFFF; font-size: 16px; font-weight: 600">LinkedIn</a>
+        <a class="btn" href="mailto:jessicacummings2021@gmail.com" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; border-radius: 999px; background: #133224; color: #FFFFFF; font-size: 16px; font-weight: 600">Email me</a>
+        <a class="btn" href="https://www.linkedin.com/in/jess-l-cummings/" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; border-radius: 999px; background: #FFFFFF; font-size: 16px; font-weight: 600">LinkedIn</a>
       </div>
     </div>
-    <div style="position: relative; grid-column: 9 / span 4">
+    <div class="pop" style="position: relative; grid-column: 9 / span 4">
       <div style="position: absolute; left: 10px; top: 40px; width: 380px; height: 480px; border-radius: 28px; background: #B7E08F; transform: rotate(-5deg)" aria-hidden="true"></div>
       <img src="/assets/96c3d3990f140cf465ab1ae567178ffa.jpg" alt="Portrait of Jess Cummings smiling, with long auburn hair, beside a monstera plant" style="position: absolute; left: 20px; top: 30px; width: 370px; height: 490px; object-fit: cover; object-position: 50% 28%; border-radius: 185px 185px 24px 24px; box-shadow: 0 30px 60px -24px rgba(21,32,26,0.5)">
     </div>
@@ -106,9 +133,9 @@ html{scroll-behavior:smooth}@media (prefers-reduced-motion: reduce){html{scroll-
         <p style="grid-column: 9 / span 4; margin: 0; font-size: 18px; line-height: 1.55; color: #4A544C">This site follows the same rules: WCAG 2.2 AA contrast, full keyboard support and screen-reader landmarks.</p>
       </div>
       <ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
-        <li style="padding: 32px; border-radius: 24px; border: 1.5px solid #133224; display: flex; flex-direction: column; gap: 12px"><span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 56px; line-height: 1; letter-spacing: -0.04em; color: #133224">70+</span><h3 style="margin: 0; font-size: 22px; font-weight: 600">Accessibility, built in</h3><p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A544C">I design to WCAG 2.2 AA from the first wireframe. At Bridgestone we fixed 70+ accessibility issues before handoff.</p></li>
-        <li style="padding: 32px; border-radius: 24px; background: #EAF4E2; display: flex; flex-direction: column; gap: 12px"><span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 56px; line-height: 1; letter-spacing: -0.04em; color: #133224">7</span><h3 style="margin: 0; font-size: 22px; font-weight: 600">Research before screens</h3><p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A544C">People first, AI second. For TripSlip I ran 7 interviews and mapped five personas before drawing a single screen.</p></li>
-        <li style="padding: 32px; border-radius: 24px; background: #FFF1E9; display: flex; flex-direction: column; gap: 12px"><span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 56px; line-height: 1; letter-spacing: -0.04em; color: #133224">15</span><h3 style="margin: 0; font-size: 22px; font-weight: 600">Systems that scale</h3><p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A544C">Documented components teams can ship without me — like the 15 master components behind chipmotors.com.</p></li>
+        <li class="lift" style="padding: 32px; border-radius: 24px; border: 1.5px solid #133224; display: flex; flex-direction: column; gap: 12px"><span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 56px; line-height: 1; letter-spacing: -0.04em; color: #133224">70+</span><h3 style="margin: 0; font-size: 22px; font-weight: 600">Accessibility, built in</h3><p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A544C">I design to WCAG 2.2 AA from the first wireframe. At Bridgestone we fixed 70+ accessibility issues before handoff.</p></li>
+        <li class="lift" style="padding: 32px; border-radius: 24px; background: #EAF4E2; display: flex; flex-direction: column; gap: 12px"><span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 56px; line-height: 1; letter-spacing: -0.04em; color: #133224">7</span><h3 style="margin: 0; font-size: 22px; font-weight: 600">Research before screens</h3><p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A544C">People first, AI second. For TripSlip I ran 7 interviews and mapped five personas before drawing a single screen.</p></li>
+        <li class="lift" style="padding: 32px; border-radius: 24px; background: #FFF1E9; display: flex; flex-direction: column; gap: 12px"><span style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 56px; line-height: 1; letter-spacing: -0.04em; color: #133224">15</span><h3 style="margin: 0; font-size: 22px; font-weight: 600">Systems that scale</h3><p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A544C">Documented components teams can ship without me — like the 15 master components behind chipmotors.com.</p></li>
       </ul>
     </section>
 
@@ -131,9 +158,9 @@ html{scroll-behavior:smooth}@media (prefers-reduced-motion: reduce){html{scroll-
         <h2 id="off-h" style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 64px; line-height: 1; letter-spacing: -0.04em; color: #133224">What fuels me</h2>
       </div>
       <ul style="margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px">
-        <li style="padding: 32px; border-radius: 24px; background: #FFF1E9; display: flex; flex-direction: column; gap: 10px"><h3 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 28px">Yoga &amp; walks</h3><p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A544C">Morning walks and yoga keep my creativity flowing — it's how I reset and recharge.</p></li>
-        <li style="padding: 32px; border-radius: 24px; background: #EAF4E2; display: flex; flex-direction: column; gap: 10px"><h3 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 28px">Giving back</h3><p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A544C">UX research with Florida Community Innovation, plus Black Tech Saturdays and Developers of Detroit.</p></li>
-        <li style="padding: 32px; border-radius: 24px; background: #FFF1E9; display: flex; flex-direction: column; gap: 10px"><h3 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 28px">Art &amp; community</h3><p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A544C">Museums, making art, and exploring Detroit — new restaurants, hidden murals, pop-up markets.</p></li>
+        <li class="lift" style="padding: 32px; border-radius: 24px; background: #FFF1E9; display: flex; flex-direction: column; gap: 10px"><h3 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 28px">Yoga &amp; walks</h3><p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A544C">Morning walks and yoga keep my creativity flowing — it's how I reset and recharge.</p></li>
+        <li class="lift" style="padding: 32px; border-radius: 24px; background: #EAF4E2; display: flex; flex-direction: column; gap: 10px"><h3 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 28px">Giving back</h3><p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A544C">UX research with Florida Community Innovation, plus Black Tech Saturdays and Developers of Detroit.</p></li>
+        <li class="lift" style="padding: 32px; border-radius: 24px; background: #FFF1E9; display: flex; flex-direction: column; gap: 10px"><h3 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 28px">Art &amp; community</h3><p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A544C">Museums, making art, and exploring Detroit — new restaurants, hidden murals, pop-up markets.</p></li>
       </ul>
     </section>
   </main>
@@ -141,7 +168,7 @@ html{scroll-behavior:smooth}@media (prefers-reduced-motion: reduce){html{scroll-
   <footer id="contact" aria-labelledby="contact-h" style="flex-grow: 1; margin: 140px 12px 12px; border-radius: 32px; background: #133224; color: #FFFFFF; box-sizing: border-box; padding: 64px 48px 36px; display: flex; flex-direction: column; justify-content: space-between">
     <div style="display: flex; flex-direction: column; gap: 20px">
       <span style="font-size: 15px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #B7E08F">05 · Contact</span>
-      <h2 id="contact-h" style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 112px; letter-spacing: -0.05em; line-height: 0.95"><a href="mailto:jessicacummings2021@gmail.com" style="color: #B7E08F">Let's work together <span aria-hidden="true">→</span></a></h2>
+      <h2 id="contact-h" style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 112px; letter-spacing: -0.05em; line-height: 0.95"><a href="mailto:jessicacummings2021@gmail.com" style="color: #B7E08F">Let's work together <span aria-hidden="true" class="nudge">→</span></a></h2>
       <p style="margin: 0; font-size: 19px; color: #E4EDE0">Open to full-time product design roles and select freelance. Based in Detroit, open to remote and relocation.</p>
     </div>
     <div style="display: flex; justify-content: space-between; align-items: center; font-size: 16px">
@@ -155,5 +182,6 @@ html{scroll-behavior:smooth}@media (prefers-reduced-motion: reduce){html{scroll-
     </div>
   </footer>
 </div>
+<script src="/assets/motion.js"></script>
 </body>
 </html>
