@@ -344,7 +344,7 @@ html[data-ad="car"] .poster-foot span:last-child { order: 2; margin-left: auto; 
 .roundel:focus-visible { outline: 3px solid var(--fg); outline-offset: 3px; }
 @media (prefers-reduced-motion: no-preference) { .roundel { transition: transform .2s ease; } .roundel:hover { transform: scale(1.08); } }
 .cta.ghost { background: transparent; color: var(--fg); box-shadow: inset 0 0 0 2.5px var(--fg); }
-@media (max-width: 720px) { .footer { padding-top: 16vh; height: 144vh; } }
+@media (max-width: 720px) { .footer { padding-top: 16vh; height: 123vh; } }
 
 
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -1884,8 +1884,12 @@ function buildEnd(w, k, baseTop, camLeft) {
   // five tracks on the fork: red splits off an orange, blue splits off a purple, on the run across the top
   const cB = camLeft + w * (narrow ? 0.34 : 0.58), cP = cB + S, cR = cB + 2 * S, cO = cB + 3 * S, cY = cB + 4 * S;
   const yY = T + 5 * u, yO = yY + S, yR = yY + 2 * S, yP = yY + 3 * S, yB = yY + 4 * S;   // yellow on top, blue at the bottom
-  const Y0 = T + 60 * u, out = T + 140 * u;                                // the loops start below the fork
-  const paths = {
+  const Y0 = T + 60 * u, out = T + (narrow ? 110 : 140) * u;                                // the loops start below the fork
+  const paths = narrow ? {   // phones: a calmer plate, each track makes one gentle jog after the fork
+    Y: [[380,1460],[380,yY],[cY,yY],[cY,Y0+18*u],[cY+12*v,Y0+18*u],[cY+12*v,out]],
+    R: [[358,1460],[358,yR],[cR,yR],[cR,out]],
+    B: [[336,1460],[336,yB],[cB,yB],[cB,Y0+8*u],[cB-12*v,Y0+8*u],[cB-12*v,out]]
+  } : {
     Y: [[380,1460],[380,yY],[cY,yY],[cY,Y0+15*u],[cB+5*v,Y0+15*u],[cB+5*v,Y0+34*u],[cY+22*v,Y0+34*u],[cY+22*v,out]],
     R: [[358,1460],[358,yR],[cR,yR],[cR,Y0+7*u],[cY+13*v,Y0+7*u],[cY+13*v,Y0+27*u],[cB-9*v,Y0+27*u],[cB-9*v,out]],
     B: [[336,1460],[336,yB],[cB,yB],[cB,Y0],[cB-15*v,Y0],[cB-15*v,Y0+21*u],[cR+4*v,Y0+21*u],[cR+4*v,out]]
@@ -1895,6 +1899,7 @@ function buildEnd(w, k, baseTop, camLeft) {
   paths.O = [[bxO, yR], [bxO + S, yO], [cO, yO], [cO, out]];
   paths.P = [[bxP, yB], [bxP + S, yP], [cP, yP], [cP, Y0 + 10 * u], [cP - 6 * v, Y0 + 10 * u], [cP - 6 * v, out]];
   branchG.innerHTML = "";
+  if (!narrow)   // phones skip the split-off orange and purple tracks
   // each branch keeps its parent's color: the orange slot splits off red, the purple slot splits off blue
   [["O", "R"], ["P", "B"]].forEach(([c, parent]) => branchG.appendChild(el("path", { d: roundPath(paths[c], R), class: "trail", stroke: `var(--${parent})` })));
   ["Y", "R", "B"].forEach(c => {
