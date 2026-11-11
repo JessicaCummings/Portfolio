@@ -1,0 +1,23 @@
+# Runs on every push and pull request. A red X on GitHub means one of these failed;
+# click it to see which image or route needs fixing.
+name: Site checks
+
+on: [push, pull_request]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Every image has alt text
+        run: python3 tools/check-alt.py
+
+      - name: Route pages are up to date with index.html
+        run: |
+          python3 tools/build-routes.py
+          git diff --exit-code -- about play work || {
+            echo "::error::Run 'python3 tools/build-routes.py' and commit the result."; exit 1; }
