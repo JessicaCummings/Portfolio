@@ -1,10 +1,13 @@
 /* Case study pages: renders CASES into a page, builds the left rail, handles the password gate. */
 
 const caseView = document.getElementById("caseView"), caseBody = document.getElementById("caseBody"), caseRail = document.getElementById("caseRail");
+const railNav = caseRail.closest(".case-rail");   // the <nav>; it takes focus when a case opens (see focusCaseStart)
 let caseReturn = null, caseIO = null;
 const esc = t => String(t).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+// Every figure needs alt text. tools/check-alt.py fails the build if one is missing; this warning catches it while editing.
 function figHTML(f) {
-  return `<figure class="cs-fig${f.size ? " " + f.size : ""}"><div class="cs-frame"><img src="${esc(f.src)}" alt="${esc(f.alt)}" loading="lazy"></div>${f.cap ? `<figcaption>${esc(f.cap)}</figcaption>` : ""}</figure>`;
+  if (!f.alt) console.warn(`Missing alt text for ${f.src}: add alt to this figure in js/cases-data.js`);
+  return `<figure class="cs-fig${f.size ? " " + f.size : ""}"><div class="cs-frame"><img src="${esc(f.src)}" alt="${esc(f.alt || "")}" loading="lazy"></div>${f.cap ? `<figcaption>${esc(f.cap)}</figcaption>` : ""}</figure>`;
 }
 // "49% → 96%" reads as a before/after: the old number sits small above, with a down arrow, and the new one stays big
 const statN = n => { const m = String(n).split(" \u2192 "); return m.length === 2 ? `<span class="was">${esc(m[0])} <span class="jc-arrow" style="--rot:90deg" aria-hidden="true"></span><span class="sr"> to</span></span>${esc(m[1])}` : esc(n); };
@@ -40,6 +43,7 @@ function renderGate(id) {
     <a class="lock-ask" href="#contact" data-end>Ask me for the password</a>
   </section>`;
   caseRail.innerHTML = `<li class="on"><a href="#cs-top" aria-current="step">Password</a></li>`;
+  railNav.setAttribute("aria-label", `${c.name} case study: stops`);
   const form = caseBody.querySelector(".lock-form"), input = form.querySelector("input"), msg = form.querySelector(".lock-msg");
   form.addEventListener("submit", async e => {
     e.preventDefault();
@@ -48,7 +52,7 @@ function renderGate(id) {
     try { await unlockCases(input.value); renderCase(id); caseView.scrollTop = 0; document.getElementById("caseTitle").focus({ preventScroll: true }); }
     catch (err) { msg.textContent = err.message === "no-crypto" ? "This browser can’t unlock it here. Try opening the page over https." : "That password didn’t work. Check it and try again."; input.select(); input.focus(); }
   });
-  caseBody.querySelector(".lock-ask").addEventListener("click", e => { e.preventDefault(); woosh(() => { caseView.classList.remove("open"); caseView.hidden = true; const end = document.getElementById("contact"); page.scrollTo({ top: end.offsetTop + end.offsetHeight - innerHeight }); }, "G"); });
+  caseBody.querySelector(".lock-ask").addEventListener("click", e => { e.preventDefault(); Router.go("/"); woosh(() => { hideCase(); const end = document.getElementById("contact"); page.scrollTo({ top: end.offsetTop + end.offsetHeight - innerHeight }); }, "G"); });
 }
 // a password already entered in this tab unlocks without asking again
 (async () => { let pw = null; try { pw = sessionStorage.getItem("jc-case-pw"); } catch (e) {} if (pw) try { await unlockCases(pw); } catch (e) {} })();
@@ -86,13 +90,19 @@ function renderCase(id) {
   });
   if (c.next && CASES[c.next]) {
     const n = CASES[c.next];
-    secs.push(`<a class="cs-next" href="#${c.next}" data-next="${c.next}" style="--nc:var(--${n.c})"><span><small>Next stop</small><b>${esc(n.name)}</b></span><span class="bullet" aria-hidden="true" style="color:${n.ink}">${esc(n.letter)}</span></a>`);
+    secs.push(`<a class="cs-next" href="/work/${c.next}" data-next="${c.next}" style="--nc:var(--${n.c})"><span><small>Next stop</small><b>${esc(n.name)}</b></span><span class="bullet" aria-hidden="true" style="color:${n.ink}">${esc(n.letter)}</span></a>`);
   }
   caseBody.innerHTML = secs.join("");
   caseRail.innerHTML = [...caseBody.querySelectorAll(".cs-sec")].map(sec => `<li><a href="#${sec.id}">${esc(sec.dataset.rail)}</a></li>`).join("");
-  caseRail.querySelectorAll("a").forEach(a => a.addEventListener("click", e => { e.preventDefault(); document.getElementById(a.getAttribute("href").slice(1)).scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" }); }));
+  railNav.setAttribute("aria-label", `${c.name} case study: stops`);
+  wireRail();
   const nx = caseBody.querySelector("[data-next]");
-  if (nx) nx.addEventListener("click", e => { e.preventDefault(); woosh(() => { renderCase(nx.dataset.next); caseView.scrollTop = 0; document.getElementById("caseTitle").focus({ preventScroll: true }); }, CASES[nx.dataset.next].c); });
+  if (nx) nx.addEventListener("click", e => {
+    if (newTabClick(e)) return;
+    e.preventDefault(); const next = nx.dataset.next;
+    Router.go(`/work/${next}`);
+    woosh(() => { renderCase(next); caseView.scrollTop = 0; focusCaseStart(); }, CASES[next].c);
+  });
   // the rail follows the reader
   if (caseIO) caseIO.disconnect();
   const items = [...caseRail.children];
@@ -110,21 +120,62 @@ function renderCase(id) {
   caseBody.querySelectorAll(".cs-sec").forEach(sec => caseIO.observe(sec));
   requestAnimationFrame(() => setOn(0));
 }
-function openCase(id, from) {
+/* ---------- keyboard: the left rail ----------
+   When a case study opens, focus goes to the rail, so the first Tab lands on its first stop.
+   Tabbing through the stops scrolls the page to each one (a preview of where Enter will take you).
+   Enter jumps into that section and moves focus there, so the next Tab continues from it.
+   Shift+Tab from the article climbs back up to the rail. */
+function scrollToSection(sec) { sec.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" }); }
+function wireRail() {
+  caseRail.querySelectorAll("a").forEach(a => {
+    const sec = () => document.getElementById(a.getAttribute("href").slice(1));
+    a.addEventListener("focus", e => {
+      if (!a.matches(":focus-visible")) return;                      // keyboard focus only, not mouse clicks
+      // Shift+Tab back up from the article lands on the stop you're reading, not the last stop on the rail
+      const current = caseRail.querySelector("li.on a");
+      if (caseBody.contains(e.relatedTarget) && current && current !== a) return current.focus();
+      scrollToSection(sec());
+    });
+    a.addEventListener("click", e => {
+      e.preventDefault();
+      const s = sec(); scrollToSection(s);
+      s.setAttribute("tabindex", "-1"); s.focus({ preventScroll: true });
+    });
+  });
+}
+// Where focus goes when a case study opens: the rail on wide screens; the title on phones, where the rail is hidden,
+// and on the password gate, where the title explains what to do.
+function focusCaseStart() {
+  const railShown = railNav.offsetParent !== null && !caseBody.querySelector(".cs-lock");
+  const target = railShown ? railNav : document.getElementById("caseTitle");
+  target.focus({ preventScroll: true });
+}
+/* Hides the case study with no transition and no URL change. The router and the nav use this. */
+function hideCase() {
+  if (caseView.hidden) return;
+  caseView.classList.remove("open"); caseView.hidden = true;
+}
+// instant = open with no transition (direct visits to /work/<id> and the browser's Back/Forward buttons)
+function openCase(id, from, instant) {
   caseReturn = from;
-  woosh(() => {
+  Router.go(`/work/${id}`);
+  const swap = () => {
+    if (clock < DURATION) { clock = DURATION; render(clock); }   // skip the rest of the intro
     if (openView) closeView(true);
     renderCase(id);
     caseView.hidden = false; caseView.classList.remove("open"); void caseView.offsetWidth; caseView.classList.add("open"); caseView.scrollTop = 0;
-    document.getElementById("caseTitle").focus({ preventScroll: true });
-  }, CASES[id].c);
+    focusCaseStart();
+  };
+  instant ? swap() : woosh(swap, CASES[id].c);
 }
-function closeCase() {
+function closeCase(instant) {
   if (caseView.hidden) return false;
-  woosh(() => { caseView.classList.remove("open"); caseView.hidden = true; if (caseReturn && caseReturn.focus) caseReturn.focus({ preventScroll: true }); }, "Y");
+  Router.go("/");
+  const swap = () => { hideCase(); if (caseReturn && caseReturn.focus) caseReturn.focus({ preventScroll: true }); };
+  instant ? swap() : woosh(swap, "Y");
   return true;
 }
-document.getElementById("caseBack").addEventListener("click", closeCase);
+document.getElementById("caseBack").addEventListener("click", () => closeCase());
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !caseView.hidden && flood.hidden) closeCase(); });
-document.querySelectorAll(".nav .route, .nav .brand").forEach(a => a.addEventListener("click", () => { if (!caseView.hidden) { caseView.classList.remove("open"); caseView.hidden = true; } }));
+document.querySelectorAll(".nav .route, .nav .brand").forEach(a => a.addEventListener("click", hideCase));
 

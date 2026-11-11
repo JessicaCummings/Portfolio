@@ -10,16 +10,16 @@
     f.querySelectorAll("[id]").forEach(el => { const old = el.id, nu = old + "-" + viewId; el.id = nu;
       f.querySelectorAll(`[aria-labelledby="${old}"]`).forEach(n => n.setAttribute("aria-labelledby", nu)); });
     view.appendChild(f);
-    const leave = then => woosh(() => {
+    const leave = then => { Router.go("/"); woosh(() => {
       if (!caseView.hidden) { caseView.classList.remove("open"); caseView.hidden = true; }
       if (openView) closeView(true);
       then();
-    }, "Y");
+    }, "Y"); };
     f.addEventListener("click", e => {
-      const a = e.target.closest("a"); if (!a || a.target === "_blank") return;
+      const a = e.target.closest("a"); if (!a || a.target === "_blank" || newTabClick(e)) return;
       e.preventDefault();
       if (a.hasAttribute("data-top")) return view.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
-      if (a.dataset.view) { if (openView === a.dataset.view) return view.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); return document.querySelector(`.route[href="#${a.dataset.view}"]`).click(); }
+      if (a.dataset.view) { if (openView === a.dataset.view) return view.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); return document.querySelector(`.route[data-view="${a.dataset.view}"]`).click(); }
       if (a.hasAttribute("data-end")) return leave(() => { const end = document.getElementById("contact"); page.scrollTo({ top: end.offsetTop + end.offsetHeight - innerHeight }); });
       if (a.hasAttribute("data-jump")) { const id = a.getAttribute("href").slice(1); return leave(() => page.scrollTo({ top: pillCenter(document.getElementById(id)) - innerHeight * PEARL_AT })); }
     });

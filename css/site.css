@@ -103,7 +103,7 @@ body::after  { z-index: 7; opacity: var(--grain-over); mix-blend-mode: var(--gra
   transition: background .2s, color .2s;
 }
 .route .bullet { width: 28px; height: 28px; font-size: 12.5px; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
-.route:hover, .route[aria-current="true"] { background: var(--fg); color: var(--bg); }
+.route:hover, .route[aria-current="page"] { background: var(--fg); color: var(--bg); }
 .route:focus-visible { outline: 3px solid var(--Y); outline-offset: 3px; }
 
 /* MTA-style route bullet: a colored circle with one letter */
@@ -1090,6 +1090,11 @@ a.kdot { text-decoration: none; }
 .case-rail a { color: var(--muted); text-decoration: none; font-weight: 700; font-size: 15px; line-height: 1.3; display: block; transition: color .2s; }
 .case-rail li.on a, .case-rail a:hover { color: var(--fg); }
 .case-rail a:focus-visible { outline: 3px solid var(--Y); outline-offset: 4px; border-radius: 4px; }
+/* keyboard: the rail takes focus when a case study opens; a section takes focus when you pick it from the rail */
+.case-rail:focus { outline: none; }
+.case-rail:focus-visible { outline: 3px solid var(--Y); outline-offset: 10px; border-radius: 8px; }
+.cs-sec:focus { outline: none; }
+.cs-sec:focus-visible { outline: 3px solid var(--Y); outline-offset: 12px; border-radius: 8px; }
 /* the rail, take two: no stop dots. One pearl rides the line to the section you're reading, and each stop
    is a small gray sign that fills with the line's color when the pearl reaches it */
 .case-rail ol { gap: 10px; padding-left: 34px; }
@@ -1113,7 +1118,7 @@ a.kdot { text-decoration: none; }
 .lock-msg { margin: 0; min-height: 1.4em; font-size: 15px; color: var(--body); }
 .lock-ask { justify-self: start; color: var(--fg); font-weight: 700; text-underline-offset: 4px; }
 .lock-ask:focus-visible { outline: 3px solid var(--cc); outline-offset: 3px; }
-.cs-sec { display: grid; gap: 20px; scroll-margin-top: 24px; }
+.cs-sec { display: grid; gap: 20px; scroll-margin-top: 96px; }   /* clears the fixed nav when the rail jumps here */
 .cs-head { display: flex; align-items: center; gap: 12px; }
 .cs-head .bullet { width: 52px; height: 52px; font-size: 26px; background: var(--cc); color: var(--cink, #fff); }
 .cs-head .pill { height: 52px; border-color: var(--cc); background: var(--cc); color: var(--cink, #fff); }

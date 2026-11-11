@@ -2,10 +2,12 @@
 
 /* Play and About are full-screen views over the ride; only one is open at a time */
 const VIEWS = {
-  play:  { el: document.getElementById("playView"),  link: document.querySelector('.route[href="#play"]'),  title: "playTitle",  build: buildPlay },
-  about: { el: document.getElementById("about"), link: document.querySelector('.route[href="#about"]'), title: "aboutTitle", build: () => { if (!abBuilt) abBuild(); } }
+  play:  { el: document.getElementById("playView"),  link: document.querySelector('.route[data-view="play"]'),  title: "playTitle",  build: buildPlay },
+  about: { el: document.getElementById("about"), link: document.querySelector('.route[data-view="about"]'), title: "aboutTitle", build: () => { if (!abBuilt) abBuild(); } }
 };
 let openView = null, viewReturn = null;
+// cmd/ctrl/shift-click or middle-click: let the browser open the link's real URL in a new tab instead
+const newTabClick = e => e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0;
 function showView(name) {
   if (clock < DURATION) { clock = DURATION; render(clock); }
   if (openView === name) return closeView();
@@ -13,13 +15,15 @@ function showView(name) {
   const v = VIEWS[name];
   v.el.hidden = false; v.el.classList.remove("open"); void v.el.offsetWidth;   // replay the entrance each time
   v.build(); v.el.classList.add("open"); v.el.scrollTop = 0;
-  v.link.setAttribute("aria-current", "true"); openView = name;
+  v.link.setAttribute("aria-current", "page"); openView = name;
+  Router.go("/" + name);
   const h = document.getElementById(v.title); h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true });
 }
 function closeView(switching) {
   closeLine();
   if (!openView) return;
   const v = VIEWS[openView]; v.el.classList.remove("open"); v.el.hidden = true; v.link.removeAttribute("aria-current"); openView = null;
+  if (!switching) Router.go("/");
   if (!switching && viewReturn && viewReturn.focus) viewReturn.focus({ preventScroll: true });
 }
 /* the woosh: colored cars rush in from the left, the page swaps while the screen is covered, then they rush out to the right */
@@ -54,11 +58,11 @@ function woosh(swap, c) {
     Promise.all(outs.map(a => a.finished)).then(() => { cars.forEach(c => c.getAnimations().forEach(a => a.cancel())); wooshEl.hidden = true; wooshing = false; });
   });
 }
-Object.entries(VIEWS).forEach(([name, v]) => v.link.addEventListener("click", e => { e.preventDefault(); if (openView === name) return; woosh(() => showView(name), name === "play" ? "P" : "R"); }));
+Object.entries(VIEWS).forEach(([name, v]) => v.link.addEventListener("click", e => { if (newTabClick(e)) return; e.preventDefault(); if (openView === name) return; woosh(() => showView(name), name === "play" ? "P" : "R"); }));
 document.getElementById("playBack").addEventListener("click", () => woosh(() => closeView(), "Y"));
 document.getElementById("aboutBack").addEventListener("click", () => woosh(() => closeView(), "Y"));
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !closeLine()) closeView(); });
-document.querySelectorAll(".nav .route:not([href='#about']):not([href='#play']), .nav .brand").forEach(a => a.addEventListener("click", () => { if (openView) woosh(() => closeView(), a.matches("[data-end]") ? "G" : "Y"); }));
+document.querySelectorAll(".nav .route:not([data-view]), .nav .brand").forEach(a => a.addEventListener("click", () => { if (openView) woosh(() => closeView(), a.matches("[data-end]") ? "G" : "Y"); }));
 // About: the route circles jump to their sign
 document.querySelectorAll("#about .kiosk-dots a").forEach(a => a.addEventListener("click", e => {
   e.preventDefault(); const t = document.querySelector(a.getAttribute("href"));
@@ -80,10 +84,11 @@ document.querySelectorAll("[data-end]").forEach(a => a.addEventListener("click",
   page.scrollTo({ top: end.offsetTop + end.offsetHeight - innerHeight, behavior: reduce ? "auto" : "smooth" });
 }));
 document.querySelectorAll("[data-top]").forEach(a => a.addEventListener("click", e => { e.preventDefault(); page.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); }));
-document.querySelectorAll(".site-foot [data-view]").forEach(a => a.addEventListener("click", e => { e.preventDefault(); document.querySelector(`.route[href="#${a.dataset.view}"]`).click(); }));
+document.querySelectorAll(".site-foot [data-view]").forEach(a => a.addEventListener("click", e => { if (newTabClick(e)) return; e.preventDefault(); document.querySelector(`.route[data-view="${a.dataset.view}"]`).click(); }));
 document.querySelectorAll("[data-jump]").forEach(a => a.addEventListener("click", e => { e.preventDefault(); rideTo(a.getAttribute("href").slice(1)); }));
 document.querySelector(".brand").addEventListener("click", e => { e.preventDefault(); page.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }); });
 document.querySelectorAll(".cta:not([data-file]), .poster").forEach(a => a.addEventListener("click", e => {
+  if (newTabClick(e) && a.closest(".stop")) return;
   e.preventDefault();
   const id = a.closest(".stop") && a.closest(".stop").id;
   if (id && CASES[id] && CASES[id].ready) openCase(id, a);
