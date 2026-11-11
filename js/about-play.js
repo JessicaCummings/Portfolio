@@ -28,7 +28,7 @@ const ROUTES = [
     ["Rock climbing", ""], ["Yoga", ""], ["Walking", ""], ["Art", ""], ["Cooking", ""] ] },
 ];
 /* ---------- Play: one bus ticket per fun project. kind "art" opens the art here; kind "site" links out.
-   To edit, change PROJECTS only. Anything starting with "Example" is placeholder copy; add url for sites, img for art. */
+   To edit, change PROJECTS only. Anything starting with "Example" is placeholder copy; add url for sites, img + alt for art. */
 const PROJECTS = [
   // label + letter are optional: they replace "Website/Art · single ticket" and the W/A circle
   { kind: "site", label: "Hackathon · winner", letter: "H", title: "The 45-Minute Mile", sub: "Think Technologies hackathon", c: "Y", ink: "#111", url: "http://the45minutemile.com/" },
@@ -194,7 +194,7 @@ function openArt(p, from) {
   document.getElementById("flDeck").hidden = true;
   const art = document.getElementById("flArt"); art.hidden = false;
   art.innerHTML = p.img ? `<img src="${p.img}" alt="">` : "<span>Artwork image here</span>";
-  if (p.img) art.querySelector("img").alt = p.title;
+  if (p.img) art.querySelector("img").alt = p.alt || p.title;   // give art its own alt: { img: "...", alt: "..." }
   const sub = document.getElementById("flSub"); sub.hidden = false; sub.textContent = p.sub;
   document.getElementById("flPh").hidden = !/^Example/.test(p.sub);
   flood.hidden = false; flood.scrollTop = 0; void flood.offsetWidth; flood.classList.add("open");
