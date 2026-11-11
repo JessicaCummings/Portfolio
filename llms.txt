@@ -12,13 +12,13 @@
 - GitHub: https://github.com/JessicaCummings
 - Resume (PDF): https://jesscummingsportfolio.com/JessCummings_Resume.pdf
 
-## Case studies (on the home page, https://jesscummingsportfolio.com/)
+## Case studies (each has its own page; all are stations on https://jesscummingsportfolio.com/)
 
-- TripSlip — Product designer, June 2026 to present. One field trip, four sides to design for: schools, parents, venues and bus companies each get their own view. Working with the product owner, Jess built the information architecture, a developer spec, the UI kit and 140+ screens.
-- Bridgestone — Senior capstone, Best UX Prototype at UMSI 2025. Fleet managers juggled several tire-health tools; a five-person student team researched, prototyped and tested one platform with views by role. Jess was the project manager.
-- Motmot — UX and product designer, Oct 2025 to May 2026. Redesigned a water-tech startup's existing Webflow site around one clear story, then measured it: pages per session up 88% in the first week.
-- ConStrat AI — Product designer, Sept 2026 to present. Customer interviews to find where people stall in the engagement flow, and the design changes to fix it. (Password-protected.)
-- B2B AI startup (anonymized) — Contract product designer, fall 2026. Audited the design system and built a design-to-production process the team adopted.
+- TripSlip (https://jesscummingsportfolio.com/work/tripslip) — Product designer, June 2026 to present. One field trip, four sides to design for: schools, parents, venues and bus companies each get their own view. Working with the product owner, Jess built the information architecture, a developer spec, the UI kit and 140+ screens.
+- Bridgestone (https://jesscummingsportfolio.com/work/bridgestone) — Senior capstone, Best UX Prototype at UMSI 2025. Fleet managers juggled several tire-health tools; a five-person student team researched, prototyped and tested one platform with views by role. Jess was the project manager.
+- Motmot (https://jesscummingsportfolio.com/work/motmot) — UX and product designer, Oct 2025 to May 2026. Redesigned a water-tech startup's existing Webflow site around one clear story, then measured it: pages per session up 88% in the first week.
+- ConStrat AI (https://jesscummingsportfolio.com/work/constrat) — Product designer, Sept 2026 to present. Customer interviews to find where people stall in the engagement flow, and the design changes to fix it. (Password-protected.)
+- B2B AI startup (anonymized) (https://jesscummingsportfolio.com/work/ai-startup) — Contract product designer, fall 2026. Audited the design system and built a design-to-production process the team adopted.
 
 ## Also
 
