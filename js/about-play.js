@@ -30,13 +30,15 @@ const ROUTES = [
 /* ---------- Play: one bus ticket per fun project. kind "art" opens the art here; kind "site" links out.
    To edit, change PROJECTS only. Anything starting with "Example" is placeholder copy; add url for sites, img + alt for art. */
 const PROJECTS = [
-  // label + letter are optional: they replace "Website/Art · single ticket" and the W/A circle
-  { kind: "site", label: "Hackathon · winner", letter: "H", title: "The 45-Minute Mile", sub: "Think Technologies hackathon", c: "Y", ink: "#111", url: "http://the45minutemile.com/" },
-  { kind: "site", label: "Civic tech", letter: "C", title: "Florida Resource Map", sub: "UMSI spring break UX sprint for a nonprofit\u2019s resource map", c: "G", ink: "#fff", url: "https://www.linkedin.com/posts/this-is-what-networking-looks-like-when-you-ugcPost-7303531106694270976-0DrN/", go: "See the post" },
-  { kind: "site", label: "Client · AI training", letter: "T", title: "Claude for accessibility", sub: "Taught the Nudena Design team to use Claude for accessibility work", c: "B", ink: "#fff", url: "https://nudena.co/nudena-design", go: "See the studio" },
-  { kind: "site", label: "Accessibility audit", letter: "A", title: "League Proof", sub: "Accessibility audit of the League Proof site", c: "R", ink: "#fff", url: "https://leagueproof.com/" },
-  { kind: "site", label: "Toolkit · small business", letter: "K", title: "PM starter kit", sub: "SMART goals, a project management guide and a team growth path for small teams", c: "O", ink: "#111", url: "" },
-  { kind: "deck", label: "Claude skill", letter: "S", title: "Consulting deck skill", sub: "My Claude skill for strategy-firm slides: action titles, one exhibit each. Flip through a deck that explains how it works, then download the skill.", c: "P", ink: "#fff", go: "View the deck", download: "/skill/consulting-slide-layouts-SKILL.md", slides: [
+  // label + letter are optional: they replace "Website/Art · single ticket" and the W/A circle.
+  // look = the ticket's format (see TICKET_ART below): "tag" | "stub" | "solid" | "dark" | "strip"
+  // art = the shape on it: "dots" | "halves" | "arrow" | "checker" | "quarters". code = the big type on a "tag".
+  { kind: "site", label: "Hackathon · winner", letter: "H", look: "tag", code: "45:00", title: "The 45-Minute Mile", sub: "Think Technologies hackathon", c: "Y", ink: "#111", url: "http://the45minutemile.com/" },
+  { kind: "site", label: "Civic tech", letter: "C", look: "stub", art: "dots", title: "Florida Resource Map", sub: "UMSI spring break UX sprint for a nonprofit\u2019s resource map", c: "G", ink: "#fff", url: "https://www.linkedin.com/posts/this-is-what-networking-looks-like-when-you-ugcPost-7303531106694270976-0DrN/", go: "See the post" },
+  { kind: "site", label: "Client · AI training", letter: "T", look: "solid", art: "halves", title: "Claude for accessibility", sub: "Taught the Nudena Design team to use Claude for accessibility work", c: "B", ink: "#fff", url: "https://nudena.co/nudena-design", go: "See the studio" },
+  { kind: "site", label: "Accessibility audit", letter: "A", look: "dark", art: "arrow", title: "League Proof", sub: "Accessibility audit of the League Proof site", c: "R", ink: "#fff", url: "https://leagueproof.com/" },
+  { kind: "site", label: "Toolkit · small business", letter: "K", look: "strip", art: "checker", title: "PM starter kit", sub: "SMART goals, a project management guide and a team growth path for small teams", c: "O", ink: "#111", url: "" },
+  { kind: "deck", label: "Claude skill", letter: "S", look: "stub", art: "quarters", title: "Consulting deck skill", sub: "My Claude skill for strategy-firm slides: action titles, one exhibit each. Flip through a deck that explains how it works, then download the skill.", c: "P", ink: "#fff", go: "View the deck", download: "/skill/consulting-slide-layouts-SKILL.md", slides: [
     ["/deck2/k-01.jpg", "Consulting decks, on rails"],
     ["/deck2/k-02.jpg", "Every slide proves one point"],
     ["/deck2/k-03.jpg", "01 · Plan the story"],
@@ -158,6 +160,24 @@ function openLine(id, from) {
   flood.hidden = false; flood.scrollTop = 0; void flood.offsetWidth; flood.classList.add("open");
   document.getElementById("flClose").focus({ preventScroll: true });
 }
+/* Ticket art: decorative SVG shapes, hidden from screen readers. --c is the ticket's line color.
+   Each piece is drawn for the panel it sits in: [viewBox, shapes]. "dots" is a CSS pattern instead (.tk-art--dots),
+   so it tiles at any size. */
+const TICKET_ART = {
+  dots: null,
+  // the solid ticket's band (wide): half circles flipping up and down
+  halves: ["0 0 240 100", [0, 1, 2, 3].map(k => `<path d="M${k * 60} 50a30 30 0 0 ${k % 2} 60 0z" fill="${k % 2 ? "var(--ink)" : "var(--Y)"}"/>`).join("")
+    + [0, 1, 2, 3].map(k => `<path d="M${k * 60} 50a30 30 0 0 ${1 - k % 2} 60 0z" fill="${k % 2 ? "var(--Y)" : "var(--ink)"}" opacity=".9"/>`).join("")],
+  // the dark ticket's corner (square)
+  arrow: ["0 0 100 100", `<path d="M10 90L78 22M34 22h44v44" fill="none" stroke="var(--c)" stroke-width="18" stroke-linejoin="miter"/>`],
+  // the strip ticket's top (2:1): checkerboard over stripes
+  checker: ["0 0 200 100", [0, 1, 2, 3].flatMap(r => [0, 1, 2, 3, 4, 5, 6, 7].filter(c => (r + c) % 2 === 0).map(c => `<rect x="${c * 25}" y="${r * 12.5}" width="25" height="12.5" fill="var(--c)"/>`)).join("")
+    + [0, 1, 2, 3].map(k => `<rect x="0" y="${58 + k * 11}" width="200" height="6" fill="var(--G)"/>`).join("")],
+  // the stub ticket's left panel (tall): a Bauhaus stack of quarters and circles
+  quarters: ["0 0 100 150", `<rect width="100" height="150" fill="#111"/><path d="M0 0h50v50A50 50 0 0 1 0 0z" fill="var(--c)"/><circle cx="75" cy="25" r="25" fill="var(--Y)"/>
+    <path d="M50 100A50 50 0 0 1 100 50v50z" fill="var(--c)"/><circle cx="25" cy="75" r="17" fill="var(--O)"/>
+    <path d="M0 150a50 50 0 0 1 100 0z" fill="var(--fg)"/><rect x="0" y="100" width="25" height="25" fill="var(--c)"/>`],
+};
 let tkBuilt = false;
 function buildPlay() {
   if (tkBuilt) return;
@@ -167,11 +187,16 @@ function buildPlay() {
     const isSite = p.kind === "site", isDeck = p.kind === "deck", live = isSite && p.url;
     const el = document.createElement(live ? "a" : "button");
     if (live) { el.href = p.url; el.target = "_blank"; el.rel = "noopener"; } else el.type = "button";
-    el.className = "sp-ticket tk"; el.style.cssText = `--c:var(--${p.c}); --ink:${p.ink}`;
+    el.className = `sp-ticket tk tk--${p.look || "plain"}`; el.style.cssText = `--c:var(--${p.c}); --ink:${p.ink}`;
     const no = String(i + 1).padStart(2, "0");
     el.innerHTML = `<span class="hd" aria-hidden="true"><i>${no}</i><i>${p.letter || (isSite ? "W" : "A")}</i></span>
       <small class="kd"></small><b class="big"></b><small class="sb"></small><span class="perf" aria-hidden="true"></span>
       <span class="way"><span aria-hidden="true">&lt;&lt;&lt;&lt;&lt;&lt;</span><span class="go"></span></span>`;
+    // decorative extras, by format: the shape, the tag's big code, the barcode stub
+    if (p.art) { const art = TICKET_ART[p.art];
+      el.insertAdjacentHTML("afterbegin", `<span class="tk-art tk-art--${p.art}" aria-hidden="true">${art ? `<svg viewBox="${art[0]}" preserveAspectRatio="xMidYMid slice">${art[1]}</svg>` : ""}</span>`); }
+    if (p.code) el.insertAdjacentHTML("afterbegin", `<span class="tk-code" aria-hidden="true">${esc(p.code)}</span>`);
+    if (p.look === "stub" || p.look === "strip") el.insertAdjacentHTML("beforeend", `<span class="tk-stub" aria-hidden="true"><span class="bars"></span><span class="vt">Admit one · ${no}</span></span>`);
     el.querySelector(".kd").textContent = p.label || ((isSite ? "Website" : "Art") + " · single ticket");
     el.querySelector(".big").textContent = p.title; el.querySelector(".sb").textContent = p.sub;
     { const g = el.querySelector(".go"), txt = isDeck ? (p.go || "View the deck") : isSite ? (live ? (p.go || "Go to site") : "Link coming soon") : "View art"; g.textContent = txt + " ";

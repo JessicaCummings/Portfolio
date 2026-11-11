@@ -761,6 +761,62 @@ a.kdot { text-decoration: none; }
 .sp-ticket.tk:focus-visible { outline: 4px solid var(--Y); outline-offset: 4px; }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) { .sp-ticket.tk:not([aria-disabled]):hover { transform: translateY(-4px) rotate(-.6deg); } }
 .tk-ph { margin: 0; font-size: 13px; font-weight: 700; color: var(--muted); }
+
+/* ---------- Play: ticket formats ----------
+   Each ticket picks a format with look: in PROJECTS (js/about-play.js). Same text and link in every format;
+   only the decoration changes. Art, the tag's code and the barcode stub are aria-hidden. */
+.tickets { grid-template-columns: 1fr; }
+@media (min-width: 640px) { .tickets { grid-template-columns: repeat(2, 1fr); } .tickets li:has(.tk--stub) { grid-column: span 2; } }
+@media (min-width: 1100px) { .tickets { grid-template-columns: repeat(4, 1fr); } }
+.sp-ticket.tk { position: relative; overflow: hidden; }
+.tk-art { position: absolute; display: block; }
+.tk-art svg { display: block; width: 100%; height: 100%; }
+.tk-art--dots { background: radial-gradient(circle, var(--c) 0 13px, transparent 14px) 4px 4px / 40px 40px, #111; }
+
+/* tag: a luggage tag, punch hole and a big code in a color band */
+.sp-ticket.tk--tag { box-shadow: inset 0 0 0 1.5px #d6d6d0; padding-top: 0; }
+.tk--tag::before { content: ""; position: absolute; top: 14px; right: 16px; width: 14px; height: 14px; border-radius: 50%; background: var(--bg); box-shadow: 0 0 0 4px #111; }
+.tk-code { display: block; margin: 0 -18px 8px; padding: 30px 18px 12px; background: var(--c); color: var(--ink);
+  font-weight: 800; font-size: clamp(56px, 6vw, 80px); letter-spacing: -0.05em; line-height: .85;
+  background-image: repeating-linear-gradient(90deg, transparent 0 10px, rgba(0,0,0,.14) 10px 14px); background-size: 100% 10px; background-repeat: no-repeat; }
+.tk--tag b.big { font-size: clamp(24px, 2.4vw, 32px); }
+
+/* stub: wide ticket, art panel on the left, barcode stub on the right */
+.sp-ticket.tk--stub { padding-left: calc(38% + 22px); padding-right: 92px; box-shadow: inset 0 0 0 1.5px #d6d6d0; }
+.tk--stub .tk-art { left: 0; top: 0; bottom: 0; width: 38%; }
+.tk--stub .perf { margin: 8px 0; }
+.tk--stub .perf::before, .tk--stub .perf::after { display: none; }
+.tk-stub { position: absolute; top: 0; right: 0; bottom: 0; width: 70px; background: var(--c); color: var(--ink);
+  border-left: 2px dashed rgba(17,17,17,.35); display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 16px 0; box-sizing: border-box; }
+.tk-stub .bars { width: 34px; flex: 1; max-height: 150px; background: repeating-linear-gradient(180deg, currentColor 0 2px, transparent 2px 4px, currentColor 4px 7px, transparent 7px 9px, currentColor 9px 10px, transparent 10px 13px); }
+.tk-stub .vt { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+@media (max-width: 639px) {
+  .sp-ticket.tk--stub { padding-left: 18px; padding-top: 156px; }
+  .tk--stub .tk-art { right: 70px; width: auto; bottom: auto; height: 140px; }
+}
+
+/* solid: the whole ticket in its line color, shapes across the top */
+.sp-ticket.tk--solid { background: var(--c); color: var(--ink); box-shadow: none; padding-top: 136px; }
+.tk--solid .tk-art { top: 0; left: 0; right: 0; height: 120px; }
+.sp-ticket.tk--solid .hd i:first-child { background: var(--ink); color: var(--c); }
+.sp-ticket.tk--solid .hd i + i { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
+.sp-ticket.tk--solid .go { color: var(--ink); }
+.tk--solid .perf { border-top-color: currentColor; opacity: .5; }
+
+/* dark: black ticket, one big shape in the corner */
+.sp-ticket.tk--dark { background: #222; color: var(--fg); box-shadow: inset 0 0 0 1.5px #3a3a3a, inset 0 8px 0 var(--c); }
+.tk--dark .tk-art { top: 18px; right: 14px; width: 74px; height: 74px; }
+.sp-ticket.tk--dark .hd i + i { background: var(--fg); color: #111; }
+.sp-ticket.tk--dark .go { color: var(--fg); }
+.tk--dark .perf { border-top-color: #555; }
+
+/* strip: art on top, info below, a barcode along the bottom */
+.sp-ticket.tk--strip { padding-top: 128px; box-shadow: inset 0 0 0 1.5px #d6d6d0; }
+.tk--strip .tk-art { top: 0; left: 0; right: 0; height: 112px; background: #111; }
+.tk--strip .tk-stub { position: static; order: 99; width: auto; flex-direction: row; align-items: center; justify-content: space-between;
+  margin: 6px -18px -12px; padding: 10px 18px; border-left: 0; border-top: 2px dashed rgba(17,17,17,.35); }
+.tk--strip .tk-stub .bars { width: 45%; height: 26px; flex: none; background: repeating-linear-gradient(90deg, currentColor 0 2px, transparent 2px 4px, currentColor 4px 7px, transparent 7px 9px, currentColor 9px 10px, transparent 10px 13px); }
+.tk--strip .tk-stub .vt { writing-mode: horizontal-tb; transform: none; white-space: nowrap; }
 /* art opened from a ticket, inside the flood */
 .fl-art { aspect-ratio: 4 / 3; max-width: 820px; width: 100%; border-radius: 12px; overflow: hidden; display: grid; place-items: center;
   border: 2px dashed var(--ink); color: var(--ink); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; font-size: 13px; }
