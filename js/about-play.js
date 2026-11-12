@@ -51,7 +51,7 @@ const PROJECTS = [
     ["/deck3/k-10.jpg", "Every number needs a comparison"],
     ["/deck3/k-11.jpg", "03 · Pick the exhibit"],
     ["/deck3/k-12.jpg", "Pick the job, then the exhibit"],
-    ["/deck3/k-13.jpg", "34 layouts on two lines"],
+    ["/deck3/k-13.jpg", "18 layouts on one line"],
     ["/deck3/k-14.jpg", "A big number is also a chart"],
     ["/deck3/k-15.jpg", "Bars drawn to scale"],
     ["/deck3/k-16.jpg", "04 · Keep it honest"],
